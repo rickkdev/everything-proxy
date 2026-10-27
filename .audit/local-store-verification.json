@@ -1,0 +1,1 @@
+{"concurrent_policy_change": "serialized before stale result check", "policy_change": "invalidated and stale result rejected", "replay": "idempotent", "retention": "expired source removed", "rule_change": "invalidated and stale result rejected", "source_change": "revisioned"}
