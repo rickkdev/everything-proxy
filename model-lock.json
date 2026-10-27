@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "models": {
+    "presidio": {
+      "package_version": "2.2.365"
+    },
+    "gliner": {
+      "repo_id": "gretelai/gretel-gliner-bi-small-v1.0",
+      "revision": "ef9ca0d3368221e5d90936c975a6a97209e71857"
+    },
+    "gliner_dependencies": [
+      {
+        "name": "deberta",
+        "repo_id": "microsoft/deberta-v3-small",
+        "revision": "a36c739020e01763fe789b4b85e2df55d6180012"
+      },
+      {
+        "name": "labels",
+        "repo_id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+      }
+    ],
+    "privacy-filter": {
+      "repo_id": "openai/privacy-filter",
+      "revision": "7ffa9a043d54d1be65afb281eddf0ffbe629385b"
+    },
+    "qwen3-4b-q4km": {
+      "repo_id": "Qwen/Qwen3-4B-GGUF",
+      "revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+      "filename": "Qwen3-4B-Q4_K_M.gguf",
+      "file_size_bytes": 2497280256
+    },
+    "qwen3-8b-q4km": {
+      "repo_id": "Qwen/Qwen3-8B-GGUF",
+      "revision": "7c41481f57cb95916b40956ab2f0b139b296d974",
+      "filename": "Qwen3-8B-Q4_K_M.gguf",
+      "file_size_bytes": 5027783488
+    },
+    "ternary-bonsai-2-27b-mlx-2bit": {
+      "repo_id": "prism-ml/Ternary-Bonsai-2-27B-mlx-2bit",
+      "revision": "fcba37d2117a7077eac6b613b2668d14d9779edd",
+      "format": "mlx-safetensors",
+      "weights_file": "model.safetensors",
+      "file_size_bytes": 8595477990,
+      "sha256": "130de5925082c168b7866b2e91b52e44abbafc99017e3ca352b77b5b55a269ed"
+    },
+    "qwen3-1_7b-q8_0": {
+      "repo_id": "Qwen/Qwen3-1.7B-GGUF",
+      "revision": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+      "filename": "Qwen3-1.7B-Q8_0.gguf",
+      "file_size_bytes": 1834426016
+    },
+    "bonsai-1_7b-q1_0": {
+      "repo_id": "prism-ml/Bonsai-1.7B-gguf",
+      "revision": "210a9e99f79cb184909d49595906526eb2b3dd9a",
+      "filename": "Bonsai-1.7B-Q1_0.gguf",
+      "file_size_bytes": 248302272
+    },
+    "ternary-bonsai-1_7b-q2_0-g64": {
+      "repo_id": "prism-ml/Ternary-Bonsai-1.7B-gguf",
+      "revision": "983b5dec2ff16aab79990711ba0f828a499a7e6a",
+      "filename": "Ternary-Bonsai-1.7B-Q2_0_g64.gguf",
+      "file_size_bytes": 490163968
+    }
+  }
+}

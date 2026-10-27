@@ -1,0 +1,5 @@
+# Phase 1 thread screening trace notes
+
+The initial screening pass did not produce usable case results: the warmup path received an empty content value and raised a `TypeError` before case evaluation. The next attempted loopback port was unavailable after server shutdown. Those terminal messages were observed during execution but were not retained as standalone logs. The cited `threads-screen/mlx-server.log` records a later successful screening run and does not independently substantiate those two earlier failures. The run was retried on a fresh port with a local JSON warmup; only retained output files are used as acceptance evidence.
+
+The audit TSV's repeated `08:34:03Z` timestamps through the initial `run` row were batch-entry timestamps, not individual event times. Exact event times for those rows were not retained. The completed-run rows at `08:41:17Z` record the final evidence update. This clarification supersedes any implication that the earlier repeated timestamps are precise event times.

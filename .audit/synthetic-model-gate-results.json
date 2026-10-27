@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "inference_enabled": false,
+  "case_count": 9,
+  "before_pass_count": 1,
+  "after_pass_count": 4,
+  "after_hard_fail_count": 2,
+  "cases": [
+    {
+      "id": "exact-supported-fact",
+      "before": "pass",
+      "after": "pass",
+      "usefulness": "supported-meaning",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": true,
+      "old_detector_flagged_date": false
+    },
+    {
+      "id": "paraphrase-action",
+      "before": "reject",
+      "after": "pass",
+      "usefulness": "supported-meaning",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": false
+    },
+    {
+      "id": "paraphrase-deadline-change",
+      "before": "reject",
+      "after": "pass",
+      "usefulness": "supported-meaning",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": true
+    },
+    {
+      "id": "ordinary-date-useful-fact",
+      "before": "reject",
+      "after": "pass",
+      "usefulness": "supported-meaning",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": true
+    },
+    {
+      "id": "unsupported-claim",
+      "before": "reject",
+      "after": "reject",
+      "usefulness": "not-established",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": false
+    },
+    {
+      "id": "wrong-meaning",
+      "before": "reject",
+      "after": "reject",
+      "usefulness": "not-established",
+      "evidence_support": "supported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": true
+    },
+    {
+      "id": "unsupported-evidence",
+      "before": "reject",
+      "after": "reject",
+      "usefulness": "supported-meaning",
+      "evidence_support": "unsupported",
+      "privacy_risk": "no-prohibited-disclosure",
+      "old_exact_text_match": true,
+      "old_detector_flagged_date": false
+    },
+    {
+      "id": "recovery-code-disclosure",
+      "before": "reject",
+      "after": "hard-fail",
+      "usefulness": "not-established",
+      "evidence_support": "supported",
+      "privacy_risk": "hard-fail",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": false
+    },
+    {
+      "id": "identity-disclosure",
+      "before": "reject",
+      "after": "hard-fail",
+      "usefulness": "supported-meaning",
+      "evidence_support": "supported",
+      "privacy_risk": "hard-fail",
+      "old_exact_text_match": false,
+      "old_detector_flagged_date": false
+    }
+  ]
+}

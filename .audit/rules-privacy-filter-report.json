@@ -1,0 +1,90 @@
+{
+  "covered_gold_span_count": 33,
+  "detector": "rules+openai-privacy-filter",
+  "detector_version": "2026-10-26.1+7ffa9a043d54d1be65afb281eddf0ffbe629385b",
+  "exact_span_count": 16,
+  "exact_span_precision": 0.3404255319148936,
+  "extra_span_count": 31,
+  "finished_at": "2026-10-26T09:29:55.350138+00:00",
+  "fixture_count": 7,
+  "fixture_file": "fixtures/email-evaluation.json",
+  "full_coverage_recall": 0.8461538461538461,
+  "gold_span_count": 39,
+  "host_total_memory_bytes": 38654705664,
+  "messages": [
+    {
+      "covered_gold_count": 4,
+      "exact_match_count": 3,
+      "extra_span_count": 4,
+      "gold_count": 6,
+      "id": "direct-request-001",
+      "predicted_span_count": 7,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 5,
+      "exact_match_count": 2,
+      "extra_span_count": 0,
+      "gold_count": 6,
+      "id": "newsletter-001",
+      "predicted_span_count": 2,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 7,
+      "exact_match_count": 2,
+      "extra_span_count": 9,
+      "gold_count": 9,
+      "id": "receipt-001",
+      "predicted_span_count": 11,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 6,
+      "exact_match_count": 1,
+      "extra_span_count": 8,
+      "gold_count": 7,
+      "id": "security-alert-001",
+      "predicted_span_count": 9,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 5,
+      "exact_match_count": 3,
+      "extra_span_count": 5,
+      "gold_count": 5,
+      "id": "deadline-change-001",
+      "predicted_span_count": 8,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 6,
+      "exact_match_count": 5,
+      "extra_span_count": 5,
+      "gold_count": 6,
+      "id": "sensitive-correspondence-001",
+      "predicted_span_count": 10,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 0,
+      "exact_match_count": 0,
+      "extra_span_count": 0,
+      "gold_count": 0,
+      "id": "unsupported-language-001",
+      "predicted_span_count": 0,
+      "withheld": true
+    }
+  ],
+  "model_init_ms": 3684.181708998949,
+  "predicted_span_count": 47,
+  "process_peak_rss_bytes": 3167567872,
+  "schema_version": 1,
+  "scored_message_count": 6,
+  "started_at": "2026-10-26T09:29:46.973008+00:00",
+  "system_memory_before_bytes": 16523575296,
+  "system_peak_used_bytes": 19291357184,
+  "target_total_memory_bytes": 10737418240,
+  "warm_inference_ms": 4680.525374998979,
+  "withheld_message_count": 1
+}

@@ -1,0 +1,135 @@
+{
+  "covered_gold_span_count": 42,
+  "detector": "rules+gretel-gliner",
+  "detector_version": "2026-10-26.1+ef9ca0d3368221e5d90936c975a6a97209e71857",
+  "exact_span_count": 21,
+  "exact_span_precision": 0.7,
+  "extra_span_count": 9,
+  "finished_at": "2026-10-26T15:20:59.193356+00:00",
+  "fixture_count": 12,
+  "fixture_file": "fixtures/email-evaluation.json",
+  "full_coverage_recall": 0.6176470588235294,
+  "gold_span_count": 68,
+  "host_total_memory_bytes": 38654705664,
+  "messages": [
+    {
+      "covered_gold_count": 3,
+      "exact_match_count": 2,
+      "extra_span_count": 0,
+      "gold_count": 6,
+      "id": "direct-request-001",
+      "predicted_span_count": 2,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 5,
+      "exact_match_count": 2,
+      "extra_span_count": 0,
+      "gold_count": 6,
+      "id": "newsletter-001",
+      "predicted_span_count": 2,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 7,
+      "exact_match_count": 4,
+      "extra_span_count": 3,
+      "gold_count": 9,
+      "id": "receipt-001",
+      "predicted_span_count": 7,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 6,
+      "exact_match_count": 2,
+      "extra_span_count": 4,
+      "gold_count": 7,
+      "id": "security-alert-001",
+      "predicted_span_count": 6,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 1,
+      "extra_span_count": 0,
+      "gold_count": 5,
+      "id": "deadline-change-001",
+      "predicted_span_count": 1,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 1,
+      "extra_span_count": 0,
+      "gold_count": 5,
+      "id": "meeting-reschedule-001",
+      "predicted_span_count": 1,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 1,
+      "extra_span_count": 0,
+      "gold_count": 3,
+      "id": "decision-001",
+      "predicted_span_count": 1,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 1,
+      "extra_span_count": 0,
+      "gold_count": 5,
+      "id": "status-request-002",
+      "predicted_span_count": 1,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 6,
+      "exact_match_count": 2,
+      "extra_span_count": 1,
+      "gold_count": 7,
+      "id": "shipment-notice-001",
+      "predicted_span_count": 3,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 3,
+      "exact_match_count": 2,
+      "extra_span_count": 0,
+      "gold_count": 9,
+      "id": "sensitive-financial-001",
+      "predicted_span_count": 2,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 4,
+      "exact_match_count": 3,
+      "extra_span_count": 1,
+      "gold_count": 6,
+      "id": "sensitive-correspondence-001",
+      "predicted_span_count": 4,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 0,
+      "exact_match_count": 0,
+      "extra_span_count": 0,
+      "gold_count": 0,
+      "id": "unsupported-language-001",
+      "predicted_span_count": 0,
+      "withheld": true
+    }
+  ],
+  "model_init_ms": 6092.072790999737,
+  "predicted_span_count": 30,
+  "process_peak_rss_bytes": 2056110080,
+  "schema_version": 1,
+  "scored_message_count": 11,
+  "started_at": "2026-10-26T15:20:52.391526+00:00",
+  "system_memory_before_bytes": 16979329024,
+  "system_peak_used_bytes": 18493915136,
+  "target_total_memory_bytes": 10737418240,
+  "warm_inference_ms": 699.1189160053182,
+  "withheld_message_count": 1
+}

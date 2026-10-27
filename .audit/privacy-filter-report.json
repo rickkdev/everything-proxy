@@ -1,0 +1,90 @@
+{
+  "covered_gold_span_count": 9,
+  "detector": "openai-privacy-filter",
+  "detector_version": "7ffa9a043d54d1be65afb281eddf0ffbe629385b",
+  "exact_span_count": 6,
+  "exact_span_precision": 0.1875,
+  "extra_span_count": 26,
+  "finished_at": "2026-10-26T09:29:03.525279+00:00",
+  "fixture_count": 7,
+  "fixture_file": "fixtures/email-evaluation.json",
+  "full_coverage_recall": 0.23076923076923078,
+  "gold_span_count": 39,
+  "host_total_memory_bytes": 38654705664,
+  "messages": [
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 2,
+      "extra_span_count": 4,
+      "gold_count": 6,
+      "id": "direct-request-001",
+      "predicted_span_count": 6,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 0,
+      "exact_match_count": 0,
+      "extra_span_count": 0,
+      "gold_count": 6,
+      "id": "newsletter-001",
+      "predicted_span_count": 0,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 1,
+      "exact_match_count": 0,
+      "extra_span_count": 7,
+      "gold_count": 9,
+      "id": "receipt-001",
+      "predicted_span_count": 7,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 1,
+      "exact_match_count": 0,
+      "extra_span_count": 6,
+      "gold_count": 7,
+      "id": "security-alert-001",
+      "predicted_span_count": 6,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 3,
+      "exact_match_count": 2,
+      "extra_span_count": 5,
+      "gold_count": 5,
+      "id": "deadline-change-001",
+      "predicted_span_count": 7,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 2,
+      "exact_match_count": 2,
+      "extra_span_count": 4,
+      "gold_count": 6,
+      "id": "sensitive-correspondence-001",
+      "predicted_span_count": 6,
+      "withheld": false
+    },
+    {
+      "covered_gold_count": 0,
+      "exact_match_count": 0,
+      "extra_span_count": 0,
+      "gold_count": 0,
+      "id": "unsupported-language-001",
+      "predicted_span_count": 0,
+      "withheld": true
+    }
+  ],
+  "model_init_ms": 2918.540999999095,
+  "predicted_span_count": 32,
+  "process_peak_rss_bytes": 3168845824,
+  "schema_version": 1,
+  "scored_message_count": 6,
+  "started_at": "2026-10-26T09:28:59.393342+00:00",
+  "system_memory_before_bytes": 18531106816,
+  "system_peak_used_bytes": 19073613824,
+  "target_total_memory_bytes": 10737418240,
+  "warm_inference_ms": 1203.885665998314,
+  "withheld_message_count": 1
+}
