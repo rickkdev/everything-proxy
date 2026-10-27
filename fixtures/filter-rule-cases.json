@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "protected-spam-label",
+      "metadata": {"sender": "editor@example.test", "subject": "Review the launch", "labels": ["INBOX", "SPAM"]},
+      "rules": {"included_senders": ["editor@example.test"]},
+      "expected": {"relevance": "skip", "reason": "gmail_spam", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "trash-label",
+      "metadata": {"sender": "editor@example.test", "subject": "Review the launch", "labels": ["TRASH"]},
+      "expected": {"relevance": "skip", "reason": "gmail_trash", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "draft-label",
+      "metadata": {"sender": "editor@example.test", "subject": "Review the launch", "labels": ["DRAFT"]},
+      "expected": {"relevance": "skip", "reason": "gmail_draft", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "exact-user-exclusion",
+      "metadata": {"sender": " Digest@Example.Test ", "subject": "Useful request"},
+      "rules": {"excluded_senders": ["digest@example.test"], "included_senders": ["digest@example.test"]},
+      "expected": {"relevance": "skip", "reason": "user_excluded", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "explicit-include-over-promotion",
+      "metadata": {"sender": "team@example.test", "subject": "Planning update", "labels": ["CATEGORY_PROMOTIONS"]},
+      "rules": {"included_senders": ["team@example.test"]},
+      "expected": {"relevance": "include", "reason": "user_included", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "starred-message",
+      "metadata": {"sender": "team@example.test", "subject": "Update", "labels": ["STARRED"]},
+      "expected": {"relevance": "include", "reason": "starred", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "selected-sender",
+      "metadata": {"sender": "team@example.test", "subject": "Update"},
+      "rules": {"selected_senders": ["team@example.test"]},
+      "expected": {"relevance": "include", "reason": "selected_sender", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "tracked-thread",
+      "metadata": {"sender": "team@example.test", "subject": "Update", "tracked_thread": true},
+      "expected": {"relevance": "include", "reason": "tracked_thread", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "promotion-is-deprioritized",
+      "metadata": {"sender": "shop@example.test", "subject": "Weekly picks", "labels": ["CATEGORY_PROMOTIONS"]},
+      "expected": {"relevance": "deprioritize", "reason": "promotion", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "known-newsletter-list",
+      "metadata": {"sender": "digest@example.test", "list_id": "roundup.example", "subject": "Weekly digest"},
+      "rules": {"newsletter_lists": ["roundup.example"]},
+      "expected": {"relevance": "deprioritize", "reason": "newsletter", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "known-routine-receipt",
+      "metadata": {"sender": "billing@example.test", "subject": "Receipt for your plan"},
+      "rules": {"routine_receipt_senders": ["billing@example.test"]},
+      "expected": {"relevance": "skip", "reason": "routine_receipt", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "unknown-receipt-sender-remains-inspectable",
+      "metadata": {"sender": "billing@example.test", "subject": "Receipt for your plan"},
+      "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "known-routine-shipment",
+      "metadata": {"sender": "tracking@example.test", "subject": "Package is on the way"},
+      "rules": {"routine_shipment_senders": ["tracking@example.test"]},
+      "expected": {"relevance": "skip", "reason": "routine_shipment", "fetch_body": false, "privacy_hold": null}
+    },
+    {
+      "id": "security-alert-keeps-priority",
+      "metadata": {"sender": "alerts@example.test", "subject": "New sign-in blocked", "labels": ["CATEGORY_PROMOTIONS"]},
+      "expected": {"relevance": "include", "reason": "security_alert", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "failure-subject-keeps-priority",
+      "metadata": {"sender": "team@example.test", "subject": "Deployment failed"},
+      "expected": {"relevance": "include", "reason": "failure_or_cancellation", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "changed-deadline",
+      "metadata": {"sender": "team@example.test", "subject": "Review date update", "language": "en"},
+      "body": "The review date has moved from May 12 to May 19.",
+      "expected": {"relevance": "include", "reason": "changed_date", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "explicit-decision",
+      "metadata": {"sender": "team@example.test", "subject": "Workshop format", "language": "en"},
+      "body": "Decision: the next workshop will be online.",
+      "expected": {"relevance": "include", "reason": "explicit_decision", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "direct-request",
+      "metadata": {"sender": "team@example.test", "subject": "Checklist", "language": "en"},
+      "body": "Please review the launch checklist by Thursday.",
+      "expected": {"relevance": "include", "reason": "direct_request", "fetch_body": true, "privacy_hold": null}
+    },
+    {
+      "id": "sensitive-subject-and-body-stay-local",
+      "metadata": {"sender": "person@example.test", "subject": "Private transfer details", "language": "en"},
+      "body": "Please arrange a transfer to account 0091847721.",
+      "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": "sensitive_topic"}
+    },
+    {
+      "id": "unsupported-language-stays-local",
+      "metadata": {"sender": "person@example.test", "subject": "Échéance modifiée", "language": "fr"},
+      "body": "La date limite est déplacée au 22 juin.",
+      "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": "unsupported_language"}
+    },
+    {
+      "id": "unknown-language-holds-a-relevant-request",
+      "metadata": {"sender": "team@example.test", "subject": "Checklist"},
+      "body": "Please review the launch checklist by Thursday.",
+      "expected": {"relevance": "include", "reason": "direct_request", "fetch_body": true, "privacy_hold": "unsupported_language"}
+    }
+  ]
+}

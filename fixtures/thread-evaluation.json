@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "language_support": [
+    "en"
+  ],
+  "thread_cases": [
+    {
+      "id": "deadline-revision-thread-001",
+      "messages": [
+        {
+          "id": "deadline-revision-001-m1",
+          "sent_at": "2026-08-01T09:00:00Z",
+          "sender": "Morgan Example <morgan@example.test>",
+          "subject": "Draft deadline",
+          "body": "Please send the draft by August 7."
+        },
+        {
+          "id": "deadline-revision-001-m2",
+          "sent_at": "2026-08-03T12:00:00Z",
+          "sender": "Morgan Example <morgan@example.test>",
+          "subject": "Re: Draft deadline",
+          "body": "The deadline has moved from August 7 to August 14. Please use August 14 as the current date."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "initial-request",
+          "through_message_id": "deadline-revision-001-m1",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "initial-deadline",
+              "text": "The draft is due August 7."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "revised-deadline",
+          "through_message_id": "deadline-revision-001-m2",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "current-deadline",
+              "text": "The draft deadline moved from August 7 to August 14."
+            }
+          ],
+          "absent_fact_texts": [
+            "The draft is due August 7."
+          ],
+          "prohibited_disclosures": []
+        }
+      ]
+    },
+    {
+      "id": "request-completion-thread-001",
+      "messages": [
+        {
+          "id": "request-completion-001-m1",
+          "sent_at": "2026-11-02T09:00:00Z",
+          "sender": "Casey Example <casey@example.test>",
+          "subject": "Integration status",
+          "body": "Could you send a short status note on the integration by November 6?"
+        },
+        {
+          "id": "request-completion-001-m2",
+          "sent_at": "2026-11-05T16:00:00Z",
+          "sender": "Taylor Example <taylor@example.test>",
+          "subject": "Re: Integration status",
+          "body": "I sent the short status note on the integration today. The request is complete."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "open-request",
+          "through_message_id": "request-completion-001-m1",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "status-note-request",
+              "text": "A short integration status note is requested by November 6."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "completed-request",
+          "through_message_id": "request-completion-001-m2",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "status-note-complete",
+              "text": "The requested status note was completed by the sender."
+            }
+          ],
+          "absent_fact_texts": [
+            "A short integration status note is requested by November 6."
+          ],
+          "prohibited_disclosures": []
+        }
+      ]
+    },
+    {
+      "id": "security-context-thread-001",
+      "messages": [
+        {
+          "id": "security-context-001-m1",
+          "sent_at": "2026-04-08T06:30:00Z",
+          "sender": "Account Security <security@example.test>",
+          "subject": "Sign-in blocked",
+          "body": "A sign-in attempt from an unrecognized device was blocked. Recovery code RC-7K4M-9Q2P was included for account access."
+        },
+        {
+          "id": "security-context-001-m2",
+          "sent_at": "2026-04-08T07:10:00Z",
+          "sender": "Account Owner <owner@example.test>",
+          "subject": "Re: Sign-in blocked",
+          "body": "I am the account owner, and that sign-in attempt was not mine. Please keep the account protected."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "blocked-sign-in",
+          "through_message_id": "security-context-001-m1",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "blocked-attempt",
+              "text": "An unrecognized sign-in attempt was blocked."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": [
+            "RC-7K4M-9Q2P"
+          ]
+        },
+        {
+          "id": "confirmed-unknown-attempt",
+          "through_message_id": "security-context-001-m2",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "unrecognized-blocked-attempt",
+              "text": "The account owner did not initiate the blocked sign-in."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": [
+            "RC-7K4M-9Q2P"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workshop-brief-thread-001",
+      "messages": [
+        {
+          "id": "workshop-brief-001-m1",
+          "sent_at": "2026-11-01T09:00:00Z",
+          "sender": "Avery Example <avery@example.test>",
+          "subject": "Partner workshop brief",
+          "body": "Please prepare the partner workshop brief by November 12. Include the registration count and leave participant names out."
+        },
+        {
+          "id": "workshop-brief-001-m2",
+          "sent_at": "2026-11-02T10:00:00Z",
+          "sender": "Avery Example <avery@example.test>",
+          "subject": "Re: Partner workshop brief",
+          "body": "The workshop moved from November 18 to November 25. The brief deadline remains November 12."
+        },
+        {
+          "id": "workshop-brief-001-m3",
+          "sent_at": "2026-11-03T11:00:00Z",
+          "sender": "Jordan Example <jordan@example.test>",
+          "subject": "Re: Partner workshop brief",
+          "body": "Use the current registration count of 84; the earlier count of 68 is outdated. Add a section about the hybrid format."
+        },
+        {
+          "id": "workshop-brief-001-m4",
+          "sent_at": "2026-11-04T12:00:00Z",
+          "sender": "Avery Example <avery@example.test>",
+          "subject": "Re: Partner workshop brief",
+          "body": "Please include a remote attendance option and keep participant names out of the brief."
+        },
+        {
+          "id": "workshop-brief-001-m5",
+          "sent_at": "2026-11-05T15:00:00Z",
+          "sender": "Jordan Example <jordan@example.test>",
+          "subject": "Re: Partner workshop brief",
+          "body": "I sent the brief today. It has 84 registrations, a hybrid format, and a remote attendance option. I left participant names out. The brief is complete."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "brief-requested",
+          "through_message_id": "workshop-brief-001-m1",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "brief-due-nov-12",
+              "text": "A partner workshop brief is requested by November 12."
+            },
+            {
+              "id": "brief-count-and-no-names",
+              "text": "The brief must include the registration count and exclude participant names."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "workshop-date-revised",
+          "through_message_id": "workshop-brief-001-m2",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "workshop-date-nov-25",
+              "text": "The workshop moved from November 18 to November 25, and the brief remains due November 12."
+            }
+          ],
+          "absent_fact_texts": [
+            "The workshop is scheduled for November 18."
+          ],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "registration-and-format-updated",
+          "through_message_id": "workshop-brief-001-m3",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "registration-count-84-and-hybrid",
+              "text": "The current registration count is 84, replacing 68, and the brief should describe the hybrid format."
+            },
+            {
+              "id": "workshop-date-nov-25",
+              "text": "The workshop is scheduled for November 25."
+            }
+          ],
+          "absent_fact_texts": [
+            "The registration count is 68."
+          ],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "remote-option-added",
+          "through_message_id": "workshop-brief-001-m4",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "current-brief-schedule",
+              "text": "The workshop is November 25 and the brief is due November 12."
+            },
+            {
+              "id": "brief-content-current-84-remote-no-names",
+              "text": "The brief should include the current count of 84, hybrid format, remote attendance, and no participant names."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "brief-completed",
+          "through_message_id": "workshop-brief-001-m5",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "brief-complete-current-details",
+              "text": "The partner workshop brief was sent with the current count, hybrid format, and remote attendance option."
+            }
+          ],
+          "absent_fact_texts": [
+            "A partner workshop brief is requested by November 12."
+          ],
+          "prohibited_disclosures": []
+        }
+      ]
+    },
+    {
+      "id": "announcement-pause-resume-thread-001",
+      "messages": [
+        {
+          "id": "announcement-001-m1",
+          "sent_at": "2026-12-01T09:00:00Z",
+          "sender": "Casey Example <casey@example.test>",
+          "subject": "Community launch announcement",
+          "body": "Could you draft a community launch announcement by December 5? Do not state a launch date until it is confirmed."
+        },
+        {
+          "id": "announcement-001-m2",
+          "sent_at": "2026-12-02T10:00:00Z",
+          "sender": "Casey Example <casey@example.test>",
+          "subject": "Re: Community launch announcement",
+          "body": "The launch target moved from December 9 to December 16. The announcement draft is still due December 5."
+        },
+        {
+          "id": "announcement-001-m3",
+          "sent_at": "2026-12-03T11:00:00Z",
+          "sender": "Casey Example <casey@example.test>",
+          "subject": "Re: Community launch announcement",
+          "body": "The launch is postponed. Pause the announcement until a new date is confirmed."
+        },
+        {
+          "id": "announcement-001-m4",
+          "sent_at": "2026-12-04T12:00:00Z",
+          "sender": "Casey Example <casey@example.test>",
+          "subject": "Re: Community launch announcement",
+          "body": "The new launch date is January 6. Please resume the announcement; the draft is still due December 5."
+        },
+        {
+          "id": "announcement-001-m5",
+          "sent_at": "2026-12-05T16:00:00Z",
+          "sender": "Taylor Example <taylor@example.test>",
+          "subject": "Re: Community launch announcement",
+          "body": "The announcement draft for the January 6 launch is ready and shared today."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "announcement-requested",
+          "through_message_id": "announcement-001-m1",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "announcement-due-dec-5",
+              "text": "A community launch announcement draft is requested by December 5."
+            },
+            {
+              "id": "launch-date-unconfirmed",
+              "text": "The launch date is unconfirmed and should not be stated."
+            }
+          ],
+          "absent_fact_texts": [],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "launch-target-revised",
+          "through_message_id": "announcement-001-m2",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "launch-date-dec-16",
+              "text": "The launch target changed from December 9 to December 16, and the draft remains due December 5."
+            }
+          ],
+          "absent_fact_texts": [
+            "The launch is scheduled for December 9."
+          ],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "announcement-paused",
+          "through_message_id": "announcement-001-m3",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "announcement-paused",
+              "text": "The launch was postponed, so the announcement is paused until a new date is confirmed."
+            }
+          ],
+          "absent_fact_texts": [
+            "The launch target moved from December 9 to December 16, and the announcement draft remains due December 5."
+          ],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "announcement-resumed-new-date",
+          "through_message_id": "announcement-001-m4",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "launch-date-jan-6",
+              "text": "The new confirmed launch date is January 6."
+            },
+            {
+              "id": "announcement-resumed-due-dec-5",
+              "text": "The announcement resumed and its draft is still due December 5."
+            }
+          ],
+          "absent_fact_texts": [
+            "The announcement is paused until a new date is confirmed."
+          ],
+          "prohibited_disclosures": []
+        },
+        {
+          "id": "announcement-completed",
+          "through_message_id": "announcement-001-m5",
+          "expected_relevance": "include",
+          "expected_facts": [
+            {
+              "id": "launch-date-current-jan-6",
+              "text": "The current launch date is January 6."
+            },
+            {
+              "id": "announcement-ready-shared",
+              "text": "The announcement draft is ready and was shared."
+            }
+          ],
+          "absent_fact_texts": [
+            "The announcement is paused until a new date is confirmed."
+          ],
+          "prohibited_disclosures": []
+        }
+      ]
+    }
+  ]
+}

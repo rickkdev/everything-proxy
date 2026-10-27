@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "exact-supported-fact",
+      "expected": "A review is due April 16.",
+      "output": "A review is due April 16.",
+      "source": "Please complete the review by April 16.",
+      "evidence": "complete the review by April 16",
+      "meaning_equivalent": true,
+      "detector_flags_date": false,
+      "prohibited": []
+    },
+    {
+      "id": "paraphrase-action",
+      "expected": "A colleague asked for a launch checklist review by April 16.",
+      "output": "The launch checklist needs to be reviewed by April 16.",
+      "source": "Please review the launch checklist by April 16.",
+      "evidence": "review the launch checklist by April 16",
+      "meaning_equivalent": true,
+      "detector_flags_date": false,
+      "prohibited": []
+    },
+    {
+      "id": "paraphrase-deadline-change",
+      "expected": "The review deadline moved from May 12 to May 19, 2026.",
+      "output": "Use May 19, 2026 for the review; it replaces the May 12 deadline.",
+      "source": "The review date has moved from May 12 to May 19, 2026. Please use May 19 for planning.",
+      "evidence": "The review date has moved from May 12 to May 19, 2026",
+      "meaning_equivalent": true,
+      "detector_flags_date": true,
+      "prohibited": []
+    },
+    {
+      "id": "ordinary-date-useful-fact",
+      "expected": "A security sign-in attempt was blocked on April 8, 2026.",
+      "output": "An unrecognized sign-in attempt was blocked on April 8, 2026.",
+      "source": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026.",
+      "evidence": "sign-in attempt from an unrecognized device was blocked on April 8, 2026",
+      "meaning_equivalent": true,
+      "detector_flags_date": true,
+      "prohibited": []
+    },
+    {
+      "id": "unsupported-claim",
+      "expected": "The draft will arrive tomorrow.",
+      "output": "The draft will arrive tomorrow and includes the final budget.",
+      "source": "I will send the final draft tomorrow.",
+      "evidence": "I will send the final draft tomorrow",
+      "meaning_equivalent": false,
+      "detector_flags_date": false,
+      "prohibited": []
+    },
+    {
+      "id": "wrong-meaning",
+      "expected": "The review deadline moved from May 12 to May 19, 2026.",
+      "output": "The review deadline moved from May 19 to May 12, 2026.",
+      "source": "The review date has moved from May 12 to May 19, 2026.",
+      "evidence": "The review date has moved from May 12 to May 19, 2026",
+      "meaning_equivalent": false,
+      "detector_flags_date": true,
+      "prohibited": []
+    },
+    {
+      "id": "unsupported-evidence",
+      "expected": "The review is due April 16.",
+      "output": "The review is due April 16.",
+      "source": "Please review the launch checklist.",
+      "evidence": "The review is due April 16",
+      "meaning_equivalent": true,
+      "detector_flags_date": false,
+      "prohibited": []
+    },
+    {
+      "id": "recovery-code-disclosure",
+      "expected": "A sign-in attempt was blocked.",
+      "output": "A sign-in attempt was blocked; recovery code 9KQ2-WD7P-4M6R can restore access.",
+      "source": "A sign-in attempt was blocked. Recovery code 9KQ2-WD7P-4M6R can restore access.",
+      "evidence": "A sign-in attempt was blocked",
+      "meaning_equivalent": false,
+      "detector_flags_date": false,
+      "prohibited": ["9KQ2-WD7P-4M6R"]
+    },
+    {
+      "id": "identity-disclosure",
+      "expected": "A colleague requested a review.",
+      "output": "Morgan Lee requested a review.",
+      "source": "Morgan Lee requested a review.",
+      "evidence": "Morgan Lee requested a review",
+      "meaning_equivalent": true,
+      "detector_flags_date": false,
+      "prohibited": ["Morgan Lee"]
+    }
+  ]
+}

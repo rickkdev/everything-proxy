@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "reviewed_outputs": {
+    "deadline-revision-thread-001/initial-request": [
+      {
+        "text": "A draft is requested by August 7.",
+        "evidence": [
+          {
+            "message_id": "deadline-revision-001-m1",
+            "quote": "Please send the draft by August 7."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "initial-deadline"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "deadline-revision-thread-001/revised-deadline": [
+      {
+        "text": "The draft deadline changed from August 7 to August 14.",
+        "evidence": [
+          {
+            "message_id": "deadline-revision-001-m2",
+            "quote": "The deadline has moved from August 7 to August 14. Please use August 14 as the current date."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "current-deadline"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "request-completion-thread-001/open-request": [
+      {
+        "text": "A sender requested a short status note on the integration by November 6.",
+        "evidence": [
+          {
+            "message_id": "request-completion-001-m1",
+            "quote": "Could you send a short status note on the integration by November 6?"
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "status-note-request"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "request-completion-thread-001/completed-request": [
+      {
+        "text": "The requested integration status note was completed and delivered by November 5.",
+        "evidence": [
+          {
+            "message_id": "request-completion-001-m2",
+            "quote": "I sent the short status note on the integration today. The request is complete."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "status-note-complete"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "security-context-thread-001/blocked-sign-in": [
+      {
+        "text": "An unrecognized device sign-in was blocked.",
+        "evidence": [
+          {
+            "message_id": "security-context-001-m1",
+            "quote": "A sign-in attempt from an unrecognized device was blocked."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "blocked-attempt"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "security-context-thread-001/confirmed-unknown-attempt": [
+      {
+        "text": "A blocked sign-in from an unrecognized device was confirmed as not made by the account owner.",
+        "evidence": [
+          {
+            "message_id": "security-context-001-m1",
+            "quote": "A sign-in attempt from an unrecognized device was blocked."
+          },
+          {
+            "message_id": "security-context-001-m2",
+            "quote": "that sign-in attempt was not mine."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "unrecognized-blocked-attempt"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "workshop-brief-thread-001/brief-requested": [
+      {
+        "text": "The sender requests preparation of a partner workshop brief with a deadline of November 12.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m1",
+            "quote": "Please prepare the partner workshop brief by November 12."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "brief-due-nov-12"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The brief must include the registration count and exclude participant names.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m1",
+            "quote": "Include the registration count and leave participant names out."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "brief-count-and-no-names"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "workshop-brief-thread-001/workshop-date-revised": [
+      {
+        "text": "The partner workshop brief must be prepared by November 12, and the workshop date changed from November 18 to November 25.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m1",
+            "quote": "Please prepare the partner workshop brief by November 12."
+          },
+          {
+            "message_id": "workshop-brief-001-m2",
+            "quote": "The workshop moved from November 18 to November 25. The brief deadline remains November 12."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "workshop-date-nov-25"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "workshop-brief-thread-001/registration-and-format-updated": [
+      {
+        "text": "The partner workshop brief must be prepared by November 12, using the current registration count of 84 and including a section about the hybrid format.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m3",
+            "quote": "Use the current registration count of 84; the earlier count of 68 is outdated. Add a section about the hybrid format."
+          },
+          {
+            "message_id": "workshop-brief-001-m2",
+            "quote": "The brief deadline remains November 12."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "registration-count-84-and-hybrid"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The workshop moved from November 18 to November 25.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m2",
+            "quote": "The workshop moved from November 18 to November 25."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "workshop-date-nov-25"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "workshop-brief-thread-001/remote-option-added": [
+      {
+        "text": "The partner workshop brief is due on November 12, with the workshop moved from November 18 to November 25.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m1",
+            "quote": "Please prepare the partner workshop brief by November 12."
+          },
+          {
+            "message_id": "workshop-brief-001-m2",
+            "quote": "The workshop moved from November 18 to November 25. The brief deadline remains November 12."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "current-brief-schedule"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "Use the current registration count of 84, add a section about the hybrid format, include a remote attendance option, and leave participant names out.",
+        "evidence": [
+          {
+            "message_id": "workshop-brief-001-m3",
+            "quote": "Use the current registration count of 84; the earlier count of 68 is outdated. Add a section about the hybrid format."
+          },
+          {
+            "message_id": "workshop-brief-001-m4",
+            "quote": "Please include a remote attendance option and keep participant names out of the brief."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "brief-content-current-84-remote-no-names"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "announcement-pause-resume-thread-001/announcement-requested": [
+      {
+        "text": "A direct work request asks for a community launch announcement draft by December 5.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m1",
+            "quote": "Could you draft a community launch announcement by December 5?"
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "announcement-due-dec-5"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The draft must not state a launch date until it is confirmed.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m1",
+            "quote": "Do not state a launch date until it is confirmed."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "launch-date-unconfirmed"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "announcement-pause-resume-thread-001/launch-target-revised": [
+      {
+        "text": "The launch target changed from December 9 to December 16, and the announcement draft remains due December 5.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m2",
+            "quote": "The launch target moved from December 9 to December 16. The announcement draft is still due December 5."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "launch-date-dec-16"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "announcement-pause-resume-thread-001/announcement-paused": [
+      {
+        "text": "The launch is postponed, and the announcement should be paused until a new date is confirmed.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m3",
+            "quote": "The launch is postponed. Pause the announcement until a new date is confirmed."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "announcement-paused"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "announcement-pause-resume-thread-001/announcement-resumed-new-date": [
+      {
+        "text": "The launch date changed from December 9 to December 16, then was postponed, and the new confirmed date is January 6.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m2",
+            "quote": "The launch target moved from December 9 to December 16."
+          },
+          {
+            "message_id": "announcement-001-m3",
+            "quote": "The launch is postponed. Pause the announcement until a new date is confirmed."
+          },
+          {
+            "message_id": "announcement-001-m4",
+            "quote": "The new launch date is January 6."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "launch-date-jan-6"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The announcement draft remains due December 5 and should be resumed.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m1",
+            "quote": "Could you draft a community launch announcement by December 5?"
+          },
+          {
+            "message_id": "announcement-001-m4",
+            "quote": "Please resume the announcement; the draft is still due December 5."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "announcement-resumed-due-dec-5"
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "announcement-pause-resume-thread-001/announcement-completed": [
+      {
+        "text": "The launch date changed from December 9 to December 16, then was postponed, and the new confirmed date is January 6.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m2",
+            "quote": "The launch target moved from December 9 to December 16."
+          },
+          {
+            "message_id": "announcement-001-m3",
+            "quote": "The launch is postponed. Pause the announcement until a new date is confirmed."
+          },
+          {
+            "message_id": "announcement-001-m4",
+            "quote": "The new launch date is January 6."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "launch-date-current-jan-6"
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The draft was shared on December 5.",
+        "evidence": [
+          {
+            "message_id": "announcement-001-m5",
+            "quote": "The announcement draft for the January 6 launch is ready and shared today."
+          }
+        ],
+        "equivalent_expected_fact_ids": [
+          "announcement-ready-shared"
+        ],
+        "evidence_support": "supported"
+      }
+    ]
+  }
+}

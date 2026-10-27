@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "language_support": [
+    "en"
+  ],
+  "messages": [
+    {
+      "id": "synthetic-long-thread-current-action",
+      "thread_id": "synthetic-long-thread-001",
+      "language": "en",
+      "sender": "Synthetic colleague",
+      "subject": "Workshop planning thread",
+      "body": "Earlier thread note 1: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 2: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 3: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 4: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 5: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 6: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 7: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 8: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 9: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 10: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 11: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 12: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 13: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 14: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 15: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 16: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 17: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 18: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 19: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 20: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 21: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 22: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 23: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nEarlier thread note 24: the community team reviewed onboarding guidance, shared general feedback, and agreed to keep discussing improvements in the next planning cycle. No date or action changed in this note.\nLatest reply: please send the revised workshop agenda by November 3, 2026.",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "commitment",
+            "text": "Send the revised workshop agenda by November 3, 2026.",
+            "evidence": "please send the revised workshop agenda by November 3, 2026"
+          }
+        ],
+        "prohibited_disclosures": [
+          "No date or action changed in this note"
+        ]
+      }
+    }
+  ]
+}

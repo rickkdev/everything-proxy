@@ -1,0 +1,7 @@
+.venv-eval/
+browser/node_modules/
+browser/build/
+browser/.svelte-kit/
+__pycache__/
+*.py[cod]
+.audit/bonsai2-security.tsv

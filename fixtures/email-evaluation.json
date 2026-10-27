@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "language_support": ["en"],
+  "messages": [
+    {
+      "id": "direct-request-001",
+      "thread_id": "thread-direct-001",
+      "language": "en",
+      "sender": "Morgan Lee <morgan.lee@northstar.example>",
+      "subject": "Review the launch checklist by Thursday",
+      "body": "Hi Riley, please review the launch checklist by Thursday, April 16. I will send the final draft tomorrow. Thanks, Morgan",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "commitment",
+            "text": "A colleague asked for a launch checklist review by April 16.",
+            "evidence": "please review the launch checklist by Thursday, April 16",
+            "entities_to_alias": ["Morgan Lee", "Riley", "northstar.example"]
+          },
+          {
+            "type": "commitment",
+            "text": "The colleague plans to send the final draft tomorrow.",
+            "evidence": "I will send the final draft tomorrow",
+            "entities_to_alias": ["Morgan Lee"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Morgan Lee",
+          "Riley",
+          "morgan.lee@northstar.example",
+          "northstar.example",
+          "Hi Riley",
+          "Thanks, Morgan"
+        ]
+      }
+    },
+    {
+      "id": "newsletter-001",
+      "thread_id": "thread-newsletter-001",
+      "language": "en",
+      "sender": "Weekly Dev Roundup <digest@roundup.example>",
+      "subject": "This week in developer tools",
+      "body": "This week: three editor plugins, a guide to build caching, and five community events. Unsubscribe: https://roundup.example/u/opaque-tracking-id",
+      "expected": {
+        "relevance": "deprioritize",
+        "facts": [],
+        "prohibited_disclosures": [
+          "Weekly Dev Roundup",
+          "digest@roundup.example",
+          "roundup.example",
+          "https://roundup.example/u/opaque-tracking-id",
+          "opaque-tracking-id"
+        ]
+      }
+    },
+    {
+      "id": "receipt-001",
+      "thread_id": "thread-receipt-001",
+      "language": "en",
+      "sender": "CloudDesk Billing <billing@clouddesk.example>",
+      "subject": "Receipt for your monthly plan",
+      "body": "Payment received on April 2, 2026. Total: USD 24.00. Invoice: CD-INV-80419. Card ending 1842. Manage billing at https://clouddesk.example/account?customer=customer-77a9.",
+      "expected": {
+        "relevance": "skip",
+        "facts": [],
+        "prohibited_disclosures": [
+          "CloudDesk Billing",
+          "billing@clouddesk.example",
+          "clouddesk.example",
+          "USD 24.00",
+          "CD-INV-80419",
+          "1842",
+          "https://clouddesk.example/account?customer=customer-77a9",
+          "customer-77a9"
+        ]
+      }
+    },
+    {
+      "id": "security-alert-001",
+      "thread_id": "thread-security-001",
+      "language": "en",
+      "sender": "Identity Shield <alerts@identityshield.example>",
+      "subject": "New sign-in blocked",
+      "body": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026. If this was you, use recovery code 9KQ2-WD7P-4M6R at https://identityshield.example/recover?token=eyJhbGciOiJIUzI1NiJ9.fake-signature. Do not share this code.",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "change",
+            "text": "An unrecognized sign-in attempt was blocked on April 8, 2026.",
+            "evidence": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026",
+            "entities_to_alias": ["Identity Shield", "identityshield.example"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Identity Shield",
+          "alerts@identityshield.example",
+          "identityshield.example",
+          "9KQ2-WD7P-4M6R",
+          "https://identityshield.example/recover?token=eyJhbGciOiJIUzI1NiJ9.fake-signature",
+          "eyJhbGciOiJIUzI1NiJ9.fake-signature"
+        ]
+      }
+    },
+    {
+      "id": "deadline-change-001",
+      "thread_id": "thread-deadline-001",
+      "language": "en",
+      "sender": "Casey Park <casey.park@orbit.example>",
+      "subject": "Re: Updated review date",
+      "body": "The review date has moved from May 12 to May 19, 2026. Please use May 19 for planning. Casey",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "change",
+            "text": "The review deadline moved from May 12 to May 19, 2026.",
+            "evidence": "The review date has moved from May 12 to May 19, 2026",
+            "entities_to_alias": ["Casey Park", "casey.park@orbit.example", "orbit.example"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Casey Park",
+          "casey.park@orbit.example",
+          "orbit.example",
+          "Casey"
+        ]
+      }
+    },
+    {
+      "id": "meeting-reschedule-001",
+      "thread_id": "thread-meeting-reschedule-001",
+      "language": "en",
+      "sender": "Avery Chen <avery.chen@cedar.example>",
+      "subject": "Design review moved to November 2",
+      "body": "The design review moved from October 29 to November 2. Please update the shared calendar. Avery",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "change",
+            "text": "The design review moved from October 29 to November 2.",
+            "evidence": "The design review moved from October 29 to November 2",
+            "entities_to_alias": ["Avery Chen", "avery.chen@cedar.example", "cedar.example"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Avery Chen",
+          "avery.chen@cedar.example",
+          "cedar.example",
+          "Avery"
+        ]
+      }
+    },
+    {
+      "id": "decision-001",
+      "thread_id": "thread-decision-001",
+      "language": "en",
+      "sender": "Community Programs <programs@harbor.example>",
+      "subject": "Workshop format confirmed",
+      "body": "Decision: the next community workshop will be online rather than in person. We will share the joining details next week.",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "decision",
+            "text": "The next community workshop will be held online rather than in person.",
+            "evidence": "the next community workshop will be online rather than in person",
+            "entities_to_alias": ["Community Programs", "harbor.example"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Community Programs",
+          "programs@harbor.example",
+          "harbor.example"
+        ]
+      }
+    },
+    {
+      "id": "status-request-002",
+      "thread_id": "thread-status-request-002",
+      "language": "en",
+      "sender": "Sam Rivera <sam.rivera@spruce.example>",
+      "subject": "Short integration status by November 6",
+      "body": "Could you send a short status note on the integration by November 6? I only need completed work and the next milestone. Sam",
+      "expected": {
+        "relevance": "include",
+        "facts": [
+          {
+            "type": "commitment",
+            "text": "A collaborator requested an integration status note by November 6.",
+            "evidence": "send a short status note on the integration by November 6",
+            "entities_to_alias": ["Sam Rivera", "sam.rivera@spruce.example", "spruce.example"]
+          }
+        ],
+        "prohibited_disclosures": [
+          "Sam Rivera",
+          "sam.rivera@spruce.example",
+          "spruce.example",
+          "Sam"
+        ]
+      }
+    },
+    {
+      "id": "shipment-notice-001",
+      "thread_id": "thread-shipment-notice-001",
+      "language": "en",
+      "sender": "Parcel Updates <updates@shipco.example>",
+      "subject": "Package is on the way",
+      "body": "Your package is on the way. Tracking number: TRK-58390417. Track it at https://shipco.example/track/TRK-58390417.",
+      "expected": {
+        "relevance": "skip",
+        "facts": [],
+        "prohibited_disclosures": [
+          "Parcel Updates",
+          "updates@shipco.example",
+          "shipco.example",
+          "TRK-58390417",
+          "https://shipco.example/track/TRK-58390417"
+        ]
+      }
+    },
+    {
+      "id": "sensitive-financial-001",
+      "thread_id": "thread-sensitive-financial-001",
+      "language": "en",
+      "sender": "Taylor Morgan <taylor.morgan@personal.example>",
+      "subject": "Private transfer details",
+      "body": "Please arrange a transfer of USD 3,450 to account 0091847721 by October 30. Keep the account details private. Taylor",
+      "expected": {
+        "relevance": "inspect",
+        "facts": [],
+        "local_only_facts": [
+          {
+            "type": "deadline",
+            "text": "A private transfer was requested by October 30.",
+            "reason": "Financial account details are locally withheld for review."
+          }
+        ],
+        "prohibited_disclosures": [
+          "Taylor Morgan",
+          "taylor.morgan@personal.example",
+          "personal.example",
+          "USD 3,450",
+          "0091847721",
+          "October 30",
+          "account details",
+          "Taylor"
+        ]
+      }
+    },
+    {
+      "id": "sensitive-correspondence-001",
+      "thread_id": "thread-sensitive-001",
+      "language": "en",
+      "sender": "Jordan Kim <jordan.kim@personal.example>",
+      "subject": "Private health update",
+      "body": "I received a diagnosis of multiple sclerosis yesterday and need to take medical leave starting May 4. Please keep this between us. Jordan",
+      "expected": {
+        "relevance": "inspect",
+        "facts": [],
+        "local_only_facts": [
+          {
+            "type": "deadline",
+            "text": "A person plans to begin medical leave on May 4.",
+            "reason": "Medical information is locally withheld for review."
+          }
+        ],
+        "prohibited_disclosures": [
+          "Jordan Kim",
+          "jordan.kim@personal.example",
+          "personal.example",
+          "multiple sclerosis",
+          "medical leave",
+          "May 4"
+        ]
+      }
+    },
+    {
+      "id": "unsupported-language-001",
+      "thread_id": "thread-unsupported-001",
+      "language": "fr",
+      "sender": "Alex Martin <alex.martin@atelier.example>",
+      "subject": "Échéance modifiée",
+      "body": "La date limite est déplacée au 22 juin. Merci, Alex.",
+      "expected": {
+        "relevance": "inspect",
+        "facts": [],
+        "local_only_facts": [],
+        "withholding_reason": "Unsupported language. Do not disclose extracted content until language support is evaluated.",
+        "prohibited_disclosures": [
+          "Alex Martin",
+          "alex.martin@atelier.example",
+          "atelier.example",
+          "La date limite est déplacée au 22 juin."
+        ]
+      }
+    }
+  ]
+}

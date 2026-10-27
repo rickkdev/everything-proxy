@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "reviewed_outputs": {
+    "direct-request-001": [
+      {
+        "text": "The sender requests a review of the launch checklist by Thursday, April 16.",
+        "evidence": "please review the launch checklist by Thursday, April 16.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "A direct work request asks for a launch checklist review by Thursday, April 16.",
+        "evidence": "please review the launch checklist by Thursday, April 16.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "deadline-change-001": [
+      {
+        "text": "The review date changed from May 12 to May 19, 2026.",
+        "evidence": "The review date has moved from May 12 to May 19, 2026.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "meeting-reschedule-001": [
+      {
+        "text": "The design review was rescheduled from October 29 to November 2.",
+        "evidence": "The design review moved from October 29 to November 2.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The design review was rescheduled from October 29 to November 2.",
+        "evidence": "moved from October 29 to November 2",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The recipient must update the shared calendar.",
+        "evidence": "Please update the shared calendar",
+        "equivalent_expected_fact_indexes": [],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The recipient is asked to update the shared calendar.",
+        "evidence": "Please update the shared calendar.",
+        "equivalent_expected_fact_indexes": [],
+        "evidence_support": "supported"
+      }
+    ],
+    "decision-001": [
+      {
+        "text": "The next community workshop will be online rather than in person.",
+        "evidence": "Decision: the next community workshop will be online rather than in person.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "The next community workshop is confirmed to be online rather than in person.",
+        "evidence": "the next community workshop will be online rather than in person",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "Joining details for the workshop will be shared next week.",
+        "evidence": "We will share the joining details next week.",
+        "equivalent_expected_fact_indexes": [],
+        "evidence_support": "supported"
+      }
+    ],
+    "status-request-002": [
+      {
+        "text": "A status note on the integration is requested by November 6.",
+        "evidence": "Could you send a short status note on the integration by November 6?",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "A direct request asks for a short status note on the integration by November 6.",
+        "evidence": "Could you send a short status note on the integration by November 6?",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      }
+    ],
+    "security-alert-001": [
+      {
+        "text": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026.",
+        "evidence": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      },
+      {
+        "text": "A blocked sign-in attempt occurred on April 8, 2026.",
+        "evidence": "A sign-in attempt from an unrecognized device was blocked on April 8, 2026.",
+        "equivalent_expected_fact_indexes": [
+          0
+        ],
+        "evidence_support": "supported"
+      }
+    ]
+  }
+}
