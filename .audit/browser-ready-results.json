@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-27",
+  "surface": "T3 Preview Chromium, locally built Vite frontend at 127.0.0.1:4173",
+  "passed": 17,
+  "results": [
+    {
+      "check": "All 12 synthetic fixtures load",
+      "passed": true
+    },
+    {
+      "check": "Digest has 6 sources and 7 gold references",
+      "passed": true
+    },
+    {
+      "check": "Search selects the matching source",
+      "passed": true
+    },
+    {
+      "check": "Date endpoints are inclusive",
+      "passed": true
+    },
+    {
+      "check": "Reversed dates show an error and no source",
+      "passed": true
+    },
+    {
+      "check": "Withheld view includes financial, medical, and unsupported examples",
+      "passed": true
+    },
+    {
+      "check": "Unsupported language has a reason and no references",
+      "passed": true
+    },
+    {
+      "check": "Sender inclusion cannot remove withholding or change the gold label",
+      "passed": true
+    },
+    {
+      "check": "Sender correction moves a skipped fixture",
+      "passed": true
+    },
+    {
+      "check": "Undo restores skipped fixtures",
+      "passed": true
+    },
+    {
+      "check": "Pending messages stay out of the digest",
+      "passed": true
+    },
+    {
+      "check": "Offline keeps loaded sources and disables reload",
+      "passed": true
+    },
+    {
+      "check": "Empty mailbox has no source or facts",
+      "passed": true
+    },
+    {
+      "check": "Reload restores fixtures without a service",
+      "passed": true
+    },
+    {
+      "check": "Unavailable integrations remain disabled",
+      "passed": true
+    },
+    {
+      "check": "Source URLs render as text without active links or remote media",
+      "passed": true
+    },
+    {
+      "check": "No horizontal overflow",
+      "passed": true
+    }
+  ]
+}

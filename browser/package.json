@@ -1,0 +1,23 @@
+{
+  "name": "everything-proxy-browser-demo",
+  "version": "0.1.0",
+  "description": "Synthetic-only browser checkpoint for Everything Proxy",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12 <23"
+  },
+  "scripts": {
+    "dev": "vite dev --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "svelte": "^5.56.3",
+    "svelte-check": "^4.6.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16"
+  }
+}
