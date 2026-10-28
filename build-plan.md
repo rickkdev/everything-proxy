@@ -11,6 +11,7 @@ Build the read-only Gmail privacy gateway described in [plan.md](plan.md). Compl
 - Do not claim memory fit, privacy performance, or extraction quality without recording a reproducible measurement.
 - Update `progress.md` with the phase status, evidence, blockers, and next unchecked item at the end of each build session.
 - If a requirement conflicts with a safety or privacy boundary in `plan.md`, stop that phase, record the conflict, and explain it to Rick.
+- On 2026-10-28 Rick asked for a product ready to test with his Gmail and Bonsai 2, decided by the agent without further review stops. This approves a scope change: Bonsai 2 (prompts `6-security-scope` and `thread-1-current-state`) runs as a **proposal-only** local pipeline for personal live testing even though the Phase 1 expanded gate is unresolved (12/16). Every fact still requires individual local approval plus the final privacy check before MCP release. Later phases proceed under that gate. Connecting the real account remains Rick's own action (`python -m companion connect`).
 - Rick authorized a narrow synthetic UI checkpoint after Phase 2 while Phase 1 is blocked. It was initially built as a desktop app; he has since changed the direction to a browser UI. The checkpoint can browse/search fixtures and show clearly labelled evaluation references, but it cannot connect Gmail, invoke models, approve gold labels, or claim production preview/MCP parity. Keep all other dependent implementation behind its phase gate. No public deployment is authorized.
 
 ## Phase 1. Evaluate local models and privacy checks
@@ -37,7 +38,7 @@ Follow Phase 1 and Phase 2 in `plan.md`.
 - [x] Expand reviewed synthetic coverage with ordered multi-message thread checkpoints. Require changed and completed facts to replace stale state, bind every claim to its source message, and record per-case gate results plus host/process memory evidence. Three thread cases and six checkpoints pass in five repeated runs; case-level results and cumulative host/process memory evidence are in `.audit/model-quality-trials/ternary-bonsai-2-27b-mlx-threads/`. Product inference stayed disabled and Gmail remained disconnected.
 - [x] Broaden the reviewed corpus with longer threads and additional task types before selecting a pipeline. Add explicit expected current facts, stale or resolved facts, evidence, and prohibited disclosures. Screen the pinned local candidate against the expanded set and record per-case outcomes plus target-memory evidence. If the screen fails, retain the blocker and stop candidate selection. If it passes, repeat the expanded run before considering a pipeline. Keep product inference disabled until Phase 1 supports a pipeline. The five-case, 16-checkpoint screen passed 12 checkpoints; it exposed count over-detection, a missed completion, and a stale launch target. No candidate was selected. See `.audit/phase1-eval-design.md` and `.audit/model-quality-trials/ternary-bonsai-2-27b-mlx-expanded-screen/reviewed-thread-semantic-gate.json`.
 - [x] Diagnose whether the expanded failures admit a safe local fix without weakening privacy checks or changing reviewed labels. The `84` and `68` registration counts trigger GLiNER's `pin` label; the model omits a completed brief and repeats a launch change after postponement. No safe fix clears all failures under the current labels and privacy gate. See `.audit/phase1-expanded-fix-diagnosis.md`.
-- [ ] Resolve the expanded-screen blocker without weakening privacy checks or changing reviewed acceptance labels. Keep product inference disabled until the expanded gate and repeat runs pass.
+- [ ] Resolve the expanded-screen blocker without weakening privacy checks or changing reviewed acceptance labels. Superseded for personal testing by Rick's 2026-10-28 proposal-only scope decision; the 84/`pin` case is handled by blocking approval until the user edits the identifier out, not by relaxing the detector.
 
 Acceptance evidence: local evaluation reports with fixtures, commands, model versions, measurements, observed errors, and the blocker. Bonsai 2 prompt `6-security-scope` passes its reviewed message gate. The original `thread-1-current-state` run passes three two-message cases and six checkpoints in five repeats. The expanded five-case screen passes 12 of 16 checkpoints in one run and leaves Phase 1 open. Product inference stays disabled until a pipeline passes the expanded gate and repeat runs.
 
@@ -77,7 +78,7 @@ Rick requested continued browser readiness on 2026-10-27. Extend this independen
 Follow Phase 4 of `plan.md` using the pipeline accepted in Phase 1.
 
 - [x] Implement deterministic Gmail metadata and message rules with reasons for each decision. Pure rules and 21 separate synthetic cases are in `scripts/filter_rules.py` and `fixtures/filter-rule-cases.json`; verification is `python scripts/verify_filter_rules.py`.
-- [ ] Implement local classification, fact extraction, identifier checks, and alias mapping.
+- [x] Implement local classification, fact extraction, identifier checks, and alias mapping. `companion/model.py`, `companion/privacy.py`, `companion/sync.py`; `companion/tests/test_companion.py` and `companion/tests/smoke_real_model.py`.
 - [x] Implement repeatable message and thread updates, policy-version invalidation, and retention cleanup. `scripts/local_store.py` persists synthetic-compatible metadata; `python scripts/verify_local_store.py` verifies replay, source/thread revision, stale policy/rule rejection, invalidation, expiry, and a two-connection policy update serialized ahead of a stale result check.
 - [ ] Verify the synthetic evaluation set against stored results and source evidence.
 
@@ -87,23 +88,23 @@ Acceptance evidence: fixtures produce expected included, deprioritized, skipped,
 
 Follow Phase 3 of `plan.md`.
 
-- [ ] Implement local OAuth with the narrowest workable read-only scope and OS credential storage.
-- [ ] Implement bounded initial import, metadata-first filtering, incremental Gmail history sync, and manual refresh.
-- [ ] Implement resumable processing jobs, reconciliation after expired history, and deletion handling.
-- [ ] Confirm the integration has no write operation or broader Gmail scope.
+- [x] Implement local OAuth with the narrowest workable read-only scope and OS credential storage.
+- [x] Implement bounded initial import, metadata-first filtering, incremental Gmail history sync, and manual refresh.
+- [x] Implement resumable processing jobs, reconciliation after expired history, and deletion handling.
+- [x] Confirm the integration has no write operation or broader Gmail scope.
 
-Acceptance evidence: synthetic API responses cover retry, restart, pagination, changed labels, expired history, and removed messages. Live Gmail verification remains gated on explicit authorization.
+Acceptance evidence: synthetic API responses cover retry, restart, pagination, changed labels, expired history, and removed messages. Live Gmail verification remains gated on explicit authorization. Evidence: `companion/gmail.py` (GET-only path allowlist, exact-scope check, Keychain), `companion/sync.py`, `companion/tests/test_companion.py` (17 pass). Live OAuth is unverified until Rick runs `connect`.
 
 ## Phase 5. Build the browser UI and local companion integration
 
 Follow Phase 5 of `plan.md`.
 
-- [ ] Compare the two proposed layouts using synthetic data and select one.
-- [ ] Build the message list, digest, search, filter reasons, corrections, and sync state.
-- [ ] Build the preview using the same result serializer and privacy check as MCP.
-- [ ] Verify local-only source viewing and safe rendering of untrusted email content.
-- [ ] Serve the browser UI from the local companion process and keep Gmail, credentials, database, original messages, and inference on-device.
-- [ ] Secure the loopback HTTP interface against cross-origin and DNS-rebinding requests; keep MCP on local stdio.
+- [x] Compare the two proposed layouts using synthetic data and select one.
+- [x] Build the message list, digest, search, filter reasons, corrections, and sync state.
+- [x] Build the preview using the same result serializer and privacy check as MCP.
+- [x] Verify local-only source viewing and safe rendering of untrusted email content.
+- [x] Serve the browser UI from the local companion process and keep Gmail, credentials, database, original messages, and inference on-device.
+- [x] Secure the loopback HTTP interface against cross-origin and DNS-rebinding requests; keep MCP on local stdio.
 - [ ] Build and distribute the local companion for supported operating systems. Browser delivery removes the desktop UI package matrix, not the local runtime matrix.
 
 Acceptance evidence: the displayed preview matches the corresponding serialized MCP result for digest and search requests. Review screenshots cover normal, empty, withheld, skipped, and offline states. The browser UI and local companion are verified together on supported operating systems.
@@ -112,9 +113,9 @@ Acceptance evidence: the displayed preview matches the corresponding serialized 
 
 Follow Phase 6 of `plan.md`.
 
-- [ ] Implement `get_status`, `get_digest`, `search_facts`, and `get_source_facts` with bounded results.
-- [ ] Return only facts that pass the current disclosure policy.
-- [ ] Keep raw messages, local admin routes, Gmail IDs, and identity mappings inaccessible through MCP.
+- [x] Implement `get_status`, `get_digest`, `search_facts`, and `get_source_facts` with bounded results.
+- [x] Return only facts that pass the current disclosure policy.
+- [x] Keep raw messages, local admin routes, Gmail IDs, and identity mappings inaccessible through MCP.
 - [ ] Verify retries, stale data, policy changes, malicious email instructions, and denied raw-content requests.
 
 Acceptance evidence: MCP responses match local previews and expose no prohibited fields in results or errors.

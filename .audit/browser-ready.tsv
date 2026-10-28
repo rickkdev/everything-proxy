@@ -1,0 +1,8 @@
+ts	phase	decision	why	evidence	result
+2026-10-27T02:13:11.107527+00:00	scope	Extend the independent browser checkpoint	Rick requested browser readiness; failed privacy and memory gates still block production	plan.md; build-plan.md	production disabled
+2026-10-27T02:13:11.107698+00:00	boundary	Specify same-origin terminal pairing and authenticated API sessions	Finish the next open design task before connecting private data	.audit/loopback-http-boundary.md	design specified; implementation unverified
+2026-10-27T02:13:11.107702+00:00	shape	Keep the inbox shell with typed views and synthetic scenarios	Reuse the chosen layout and make fixture simulation explicit	.audit/browser-ready-design.md; browser/src/lib/demo.ts	implemented
+2026-10-27T02:13:11.107703+00:00	verification	Fix the expanding grid and short-screen list collapse	Actual browser inspection exposed unreachable controls and cards	browser/src/app.css; .audit/browser-ready-verification.md	browser verified
+2026-10-27T02:13:11.107705+00:00	evidence	Record built UI checks and production gaps	Do not equate a fixture demo with Gmail or MCP readiness	.audit/browser-ready-results.json; progress.md	17 checks pass
+2026-10-27T02:13:11.107706+00:00	review	Use one agent and retain production gates	Rick requests no delegation for work one agent can finish	AGENTS.md; .audit/browser-ready-verification.md	no independent review or shipping
+2026-10-27T02:14:11.928917+00:00	verification	Reset selection as well as filters and sender simulations	A repeat run exposed retained selection after Reset demo	browser/src/App.svelte; browser/scripts/verify-demo.js	17 checks pass twice consecutively

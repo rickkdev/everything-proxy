@@ -14,6 +14,8 @@ Rick first authorized a synthetic desktop checkpoint, then changed the direction
 
 Rick's 2026-10-27 request extends browser checkpoint readiness to digest cards, demo-date filtering, explicit withheld reasons, session-only sender-filter simulation, setup status, responsive navigation, and labelled offline, partial, and empty scenarios. These are synthetic browser interactions, not production processing, persisted rules, fact approvals, or disclosure.
 
+On 2026-10-28 Rick asked for the product to be ready for testing with his own Gmail and Bonsai 2. Bonsai 2 is therefore enabled as a local, proposal-only extraction pipeline for personal testing despite the open Phase 1 expanded gate. Approval of each fact and the final privacy check remain mandatory before any MCP release; English-only processing, local-only originals, and `gmail.readonly` are unchanged.
+
 Throughput checkpoint for this planning task is not applicable. Local model reports now contain single-run throughput and memory samples. Treat them as exploratory measurements, not a performance baseline. Measure repeatability and target-device fit before choosing a production pipeline.
 
 ## Preserve the product boundaries
