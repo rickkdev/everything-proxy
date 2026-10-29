@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 import sys
 import threading
@@ -25,6 +26,7 @@ def main(argv: list[str] | None = None) -> int:
     serve.add_argument("--window-days", type=int, default=30)
     serve.add_argument("--no-model", action="store_true", help="sync and filter only; skip local extraction")
     serve.add_argument("--open", action="store_true", help="open the UI in the default browser")
+    serve.add_argument("--no-pairing-expiry", action="store_true", help="pairing codes stay valid until used (still single use)")
     commands.add_parser("mcp", help="serve read-only MCP tools over stdio")
     commands.add_parser("status", help="print the sanitized status that MCP clients see")
     args = parser.parse_args(argv)
@@ -56,7 +58,7 @@ def _serve(args: argparse.Namespace) -> int:
     from . import privacy
     from .gmail import GmailClient, Grant
     from .model import BonsaiExtractor, runtime_available
-    from .server import STATIC_DIR, Companion, serve
+    from .server import PAIRING_SECONDS, STATIC_DIR, Companion, serve
     from .sync import Gateway
 
     if not (STATIC_DIR / "index.html").is_file():
@@ -67,7 +69,8 @@ def _serve(args: argparse.Namespace) -> int:
     unavailable = runtime_available()
     extractor = None if args.no_model or unavailable else BonsaiExtractor()
     gateway = Gateway(store.connect(), client, extractor, args.max_messages, args.window_days) if client else None
-    app = Companion(args.port, gateway, grant.email if grant else None)
+    app = Companion(args.port, gateway, grant.email if grant else None,
+                    math.inf if args.no_pairing_expiry else PAIRING_SECONDS)
     try:
         server = serve(app)
     except OSError as error:
@@ -85,7 +88,8 @@ def _serve(args: argparse.Namespace) -> int:
     print(f"Gmail: {grant.email if grant else 'not connected; run: python -m companion connect --client-secrets <file>'}")
     print(f"Local model: {'disabled' if extractor is None else 'Ternary-Bonsai-2-27B (MLX, starts on first message)'}"
           + (f" — {unavailable}" if unavailable else ""))
-    print(f"\nPairing code (valid 5 minutes, single use):\n\n    {app.pairing_secret}\n")
+    validity = "valid until used" if args.no_pairing_expiry else "valid 5 minutes"
+    print(f"\nPairing code ({validity}, single use):\n\n    {app.pairing_secret}\n")
     print("Press Enter for a new pairing code. Ctrl+C stops the companion.", flush=True)
     if args.open:
         webbrowser.open(app.origin + "/")

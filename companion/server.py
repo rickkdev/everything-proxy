@@ -45,14 +45,15 @@ VIEWS = {
 
 
 class Companion:
-    def __init__(self, port: int, gateway, account_email: str | None) -> None:
+    def __init__(self, port: int, gateway, account_email: str | None, pairing_seconds: float = PAIRING_SECONDS) -> None:
         self.port = port
+        self.pairing_seconds = pairing_seconds
         self.origin = f"http://127.0.0.1:{port}"
         self.host = f"127.0.0.1:{port}"
         self.gateway = gateway
         self.account_email = account_email
         self.pairing_secret: str | None = secrets.token_urlsafe(32)
-        self.pairing_expires = time.monotonic() + PAIRING_SECONDS
+        self.pairing_expires = time.monotonic() + self.pairing_seconds
         self.pairing_attempts = 0
         self.sessions: dict[str, dict] = {}
         self.lock = threading.Lock()
@@ -60,7 +61,7 @@ class Companion:
     def new_pairing_secret(self) -> str:
         with self.lock:
             self.pairing_secret = secrets.token_urlsafe(32)
-            self.pairing_expires = time.monotonic() + PAIRING_SECONDS
+            self.pairing_expires = time.monotonic() + self.pairing_seconds
             self.pairing_attempts = 0
             return self.pairing_secret
 
