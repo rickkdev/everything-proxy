@@ -1,13 +1,13 @@
 # Build progress
 
-Last updated: 2026-10-28
+Last updated: 2026-10-29
 
 ## Current state
 
 - Overall status (2026-10-28): **ready for Rick's personal live test with Gmail and Bonsai 2.** The local companion (`companion/`) implements read-only Gmail OAuth, bounded import and history sync, deterministic filtering, Bonsai 2 proposal-only extraction, rules+GLiNER identifier checks, local aliasing, a browser review UI, one release serializer, and a stdio MCP server. Setup steps: `companion/README.md`.
 - Scope decision: Rick asked the agent to decide instead of pausing for review and to make the product testable with his Gmail and Bonsai 2. The Phase 1 expanded gate (12/16) stays recorded as unresolved; Bonsai 2 runs as a proposal-only pipeline, and every fact still needs local approval and the final privacy check. `plan.md` and `build-plan.md` record this change.
-- No Gmail account has been accessed. No OAuth client exists yet; Rick must create a Google "Desktop app" OAuth client and run `python -m companion connect` himself.
-- First unchecked build-plan task: Phase 1 expanded-screen blocker (superseded for personal testing). Next actionable task: Phase 7 bounded live Gmail verification, run by Rick.
+- No Gmail account has been accessed. On 2026-10-28, at Rick's request, the agent created the Google Cloud project `everything-proxy` under Rick's Gmail address: Gmail API enabled, External/Testing consent screen, sole test user Rick's Gmail address, sole scope `gmail.readonly`, Desktop client "everything-proxy companion". The client JSON is in `~/Downloads/` (mode 0600, outside the repo). Rick runs `python -m companion connect` himself.
+- First unchecked build-plan task: Phase 1 expanded-screen blocker (superseded for personal testing). Next actionable task: Phase 7 bounded live Gmail verification. Blocked on 2026-10-28 because no Gmail grant exists; Rick must run `connect` first (see the last session log).
 - Previous state notes for the synthetic checkpoint and model evaluation remain below and in the session log.
 
 ## Phase status
@@ -135,4 +135,73 @@ Evidence:
 
 Limits: English only (a German-heavy mailbox will be mostly withheld). Database not encrypted. macOS only. ChatGPT tunnel not included. The OAuth app in Testing mode expires refresh tokens after 7 days. No live Gmail run yet. Malicious-instruction handling relies on the prompt plus MCP having no action surface; it has no dedicated test.
 
-Next: Rick follows `companion/README.md` to create the OAuth client, connect, and run the first bounded live test. Record live results under Phase 7.
+Next: superseded by the Phase 7 attempt below.
+
+## 2026-10-28 Phase 7 live Gmail verification attempt (blocked)
+
+Rick asked for the bounded live verification: at most 20 messages from the last 7 days, read-only, no facts approved by the agent. Done means the MCP `get_digest` response matches the browser's MCP preview byte for byte and contains no message IDs or real names.
+
+Blocked before any Gmail access. No Gmail grant exists on this Mac:
+- `Grant.load()` (the loader `serve` uses) returned `None`.
+- `security find-generic-password -s everything-proxy.gmail` found no Keychain item.
+- `~/Library/Application Support/everything-proxy/` does not exist, so no import has ever run.
+
+Connecting requires Rick's consent in Google's browser screen and stays his action under `build-plan.md`. No mailbox data was read, no facts were approved, and no code changed.
+
+Findings for the run once connected:
+- Bounded command: `.venv-eval/bin/python -m companion serve --open --max-messages 20 --window-days 7`.
+- The existing parity check (`companion/tests/smoke_real_model.py`) compares parsed dicts from `ReleaseService` directly with MCP output. It does not compare bytes or fetch the browser's `/api/preview` route. Byte-for-byte parity against the browser preview still needs its own check.
+- With no approved facts, `get_digest` releases no facts. Parity would then cover only the empty digest envelope. Rick approves facts himself to make parity cover real content.
+
+Next: Rick runs `companion/README.md` step 2 (`connect`). Then rerun this Phase 7 task.
+
+## 2026-10-29 live connect and HTML-in-plain-text fix
+
+Rick connected Rick's Gmail address (`gmail.readonly`) and is reviewing locally with `serve --max-messages 20 --window-days 7`. Status after import: 20 messages, 18 processed, 1 malformed model output, 1 withheld. The agent approved no facts. Rick has approved 1 fact; 2 are proposed.
+
+Fixed: Rick saw Outlook conditional comments (`<!--[if !mso]><!-->`) in the source view. Cause: two senders put HTML, VML tags, and `<br/>` into the `text/plain` part, and `body_text` trusted the declared MIME type. HTML parts were already cleaned correctly. `companion/text.py` now treats a `text/plain` part that contains markup as HTML. It prefers the real HTML part when one exists. Plain text with `<user@host>` or `3 < 5` is unchanged.
+
+Evidence:
+- `BodyTextTest` in `companion/tests/test_companion.py` adds 3 tests. They failed before the fix and pass after it. The full suite passes 20 tests.
+- The two affected messages had no facts. They were reset to `pending_body`, re-fetched read-only, and reprocessed. After that, no stored body matches the markup pattern. Inspection used counts and markup-only matches. No message text left the Mac.
+
+Defect found (fixed later on 2026-10-29, see below): stopping `serve` with SIGTERM skips `extractor.stop()`, because only `KeyboardInterrupt` reaches the `finally`. The MLX server is orphaned and keeps port 18229, and the next `serve` fails every extraction with `OSError`. This happened once during this session. The orphan was killed and the failed messages were retried. The code is not fixed yet. Stop `serve` with Ctrl+C until it is.
+
+Next: Rick finishes reviewing. Then build the byte-level check of MCP `get_digest` against the browser's `/api/preview`.
+
+Added `serve --no-pairing-expiry` at Rick's request. With the flag, the pairing code stays valid until it is used. It remains single use and allows 10 attempts. The default stays at 5 minutes. Browser sessions still end after 30 idle minutes or 8 hours. The 20 synthetic tests pass.
+
+## 2026-10-29 live browser, privacy, and MCP readiness check
+
+Rick asked the agent (Opus 5.5) to pair a browser itself, judge whether released email data is clean, and test whether the MCP server can connect to ChatGPT or Claude on the web. Rick authorized the agent to read the local source view for this review. The agent read 7 message bodies. It approved, dismissed, and edited no facts. Full report and plan: `.audit/live-verification-2026-10-29.md`.
+
+Evidence:
+- Paired the T3 preview browser with the running `serve` (`--no-pairing-expiry`). All views load. Counts: 21 imported, 2 proposed, 1 approved.
+- The one approved fact releases no identity. 9 identity probes through stdio `search_facts` returned nothing.
+- `get_digest(since=2026-10-20)` from the browser preview equals the stdio MCP output byte for byte. This closes the byte-parity check left open on 2026-10-28, for the current approved set.
+- `claude -p --mcp-config` (Claude Code as the client) called `get_status` and `get_digest` successfully.
+
+Findings: privacy holds, but utility is low. The model proposed 1 fact from 15 privacy-request replies, and it deprioritized replies that ask Rick to act. Facts omit the company. The preview's `get_source_facts` always fails because each preview call starts a new session. A one-line Outlook quote header and undecoded `&lt;` survive in one body. The SIGTERM orphan is still open.
+
+Remote MCP: Claude Desktop and Claude Code are ready over stdio. ChatGPT can use OpenAI Secure MCP Tunnel with `--mcp-command` and the existing stdio server, once Rick sets up a Platform tunnel and authorizes facts going to OpenAI. Claude on the web needs a public Streamable HTTP endpoint with OAuth, and none is built.
+
+Next: Rick decides on the remote path (plan A, ChatGPT tunnel, recommended) and on releasing business sender names. Independent next work: plan C, the extraction recall fixtures for privacy-request replies.
+
+## 2026-10-29 fixes for live-check findings 4 to 7
+
+Rick asked the agent to fix four defects from `.audit/live-verification-2026-10-29.md`. All four are fixed and have regression tests. The agent did not access Gmail, approve facts, or restart Rick's running `serve` (pid 12554).
+
+- Finding 5 (quoted Outlook reply and `&lt;` in the Company A body). Cause: `_QUOTE_HEADERS` required `Sent:` on the line after `From:`, and plain-text parts were never entity-decoded. Company A sends an HTML-escaped `text/plain` part with a one-line `From: … Sent: …` header. `companion/text.py` now matches the header on one or two lines and unescapes plain parts.
+- Finding 4 (a developer newsletter withheld as `sensitive_topic`). Cause: the bare term `account details` matched the newsletter's "Account details" footer link. `scripts/filter_rules.py` replaces it with `account \d{6,}`, a literal account number. `RULE_VERSION` is now `2026-10-29.1`.
+- Finding 6 (preview `get_source_facts` always failed). Cause: `/api/preview` built a new `ReleaseSession` per call. Each paired browser session now owns one `ReleaseSession`, the same scope a stdio MCP client gets. Refs from one browser session are unknown to another. The preview tool picker in `browser/src/LiveApp.svelte` now offers `get_source_facts` with a ref input.
+- Finding 7 (SIGTERM orphans MLX). Cause: only `KeyboardInterrupt` reached the `finally` that calls `extractor.stop()`. `serve` now turns SIGTERM and SIGHUP into `SystemExit`. SIGKILL still cannot be handled.
+
+Evidence:
+- 6 new failing tests first, then passing: 2 in `BodyTextTest`, `test_preview_refs_belong_to_one_browser_session`, the extended `test_preview_equals_mcp_result` (one MCP session across `search_facts`, `get_digest`, and `get_source_facts`), and `ServeShutdownTest` with stdin open and with stdin at `/dev/null`. 2 new filter cases: a newsletter footer (no hold) and an account number in the body (hold). Suite: 24 tests pass. Filter cases: 23 pass. `svelte-check`: 0 errors.
+- Real MLX: `serve` with the real `BonsaiExtractor` started on port 18239. After SIGTERM, `serve` exited 0 and the MLX process and port were gone. Control with the handlers disabled: exit 143 and an orphaned MLX process, which the agent then killed.
+- Stored live data, checked offline with counts only: no message now matches the sensitive rule. The Company A body goes from 3097 to 1177 characters, with 0 entities and no quote header. The other 20 bodies are unchanged by the new cleaning.
+- Browser: a sandbox `serve` (no Gmail grant, no model) ran on a temporary copy of the local database. It was paired in the T3 preview. `get_digest` returned `src_1`, and `get_source_facts(src_1)` returned the approved fact. The copy was deleted afterwards.
+
+Not yet applied to Rick's running instance: it still runs the old code. After a restart, the stored newsletter and Company A rows keep their old state until they are reprocessed. Resetting those two to `pending_body` makes `serve` re-fetch them read-only.
+
+Next: unchanged from the previous entry. Rick decides on the remote path and on business sender names. Independent work: plan C recall fixtures.
