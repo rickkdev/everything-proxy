@@ -22,9 +22,10 @@
   let editing = $state<Record<string, string>>({});
   let announcement = $state("");
   let mobileDetail = $state(false);
-  let previewTool = $state<"get_digest" | "search_facts" | "get_status">("get_digest");
+  let previewTool = $state<"get_digest" | "search_facts" | "get_source_facts" | "get_status">("get_digest");
   let previewSince = $state(new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10));
   let previewQuery = $state("");
+  let previewRef = $state("src_1");
   let previewResult = $state("");
 
   const factView = $derived(view === "review" || view === "approved");
@@ -110,7 +111,8 @@
   }
 
   async function runPreview() {
-    const args = previewTool === "get_digest" ? { since: previewSince } : previewTool === "search_facts" ? { query: previewQuery || "deadline" } : {};
+    const args = previewTool === "get_digest" ? { since: previewSince } : previewTool === "search_facts" ? { query: previewQuery || "deadline" }
+      : previewTool === "get_source_facts" ? { ref: previewRef.trim() } : {};
     const result = await guard(() => api.preview(previewTool, args));
     if (result) previewResult = JSON.stringify(result.result, null, 2);
   }
@@ -195,9 +197,10 @@
           <h2>MCP preview</h2>
           <p>This is the exact JSON an AI client receives for the same request — produced by the same serializer and privacy check as the MCP server.</p>
           <div class="action-row">
-            <select bind:value={previewTool} aria-label="Tool"><option value="get_digest">get_digest</option><option value="search_facts">search_facts</option><option value="get_status">get_status</option></select>
+            <select bind:value={previewTool} aria-label="Tool"><option value="get_digest">get_digest</option><option value="search_facts">search_facts</option><option value="get_source_facts">get_source_facts</option><option value="get_status">get_status</option></select>
             {#if previewTool === "get_digest"}<input type="date" bind:value={previewSince} aria-label="Since" />{/if}
             {#if previewTool === "search_facts"}<input bind:value={previewQuery} placeholder="question or keywords" aria-label="Search query" />{/if}
+            {#if previewTool === "get_source_facts"}<input bind:value={previewRef} placeholder="ref from an earlier result, e.g. src_1" aria-label="Source reference" />{/if}
             <button class="primary-button" onclick={runPreview}>Preview</button>
           </div>
           {#if previewResult}<pre class="preview-json">{previewResult}</pre>{/if}

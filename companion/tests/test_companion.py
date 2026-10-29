@@ -338,14 +338,30 @@ class HttpBoundary(unittest.TestCase):
         cookie, csrf, _ = self.pair()
         fact = [row for row in facts(self.gateway) if "checklist" in row["template"]][0]
         self.gateway.db.execute("UPDATE facts SET status = 'approved', reviewed_at = ? WHERE id = ?", (store.now(), fact["id"]))
-        for tool, arguments in (("search_facts", {"query": "checklist"}), ("get_digest", {"since": "2000-01-01"})):
+        mcp_session = ReleaseSession()
+        for tool, arguments in (("search_facts", {"query": "checklist"}), ("get_digest", {"since": "2000-01-01"}),
+                                ("get_source_facts", {"ref": "src_1"})):
             status, _, preview = self.request("POST", "/api/preview", {"tool": tool, "arguments": arguments},
                                               {"Cookie": cookie, "Origin": self.app.origin, "X-CSRF-Token": csrf})
             self.assertEqual(status, 200)
-            mcp = handle(ReleaseService(self.gateway.db, "mcp"), ReleaseSession(), {
+            mcp = handle(ReleaseService(self.gateway.db, "mcp"), mcp_session, {
                 "jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": tool, "arguments": arguments}})
             self.assertEqual(preview["result"], mcp["result"]["structuredContent"])
             self.assertTrue(preview["result"]["facts"])
+
+    def test_preview_refs_belong_to_one_browser_session(self) -> None:
+        fact = [row for row in facts(self.gateway) if "checklist" in row["template"]][0]
+        self.gateway.db.execute("UPDATE facts SET status = 'approved', reviewed_at = ? WHERE id = ?", (store.now(), fact["id"]))
+        sessions = []
+        for _ in range(2):
+            cookie, csrf, _ = self.pair()
+            sessions.append({"Cookie": cookie, "Origin": self.app.origin, "X-CSRF-Token": csrf})
+        found = self.request("POST", "/api/preview", {"tool": "search_facts", "arguments": {"query": "checklist"}}, sessions[0])[2]
+        ref = {"tool": "get_source_facts", "arguments": {"ref": found["result"]["facts"][0]["ref"]}}
+        status, _, expanded = self.request("POST", "/api/preview", ref, sessions[0])
+        self.assertEqual(status, 200)
+        self.assertEqual(expanded["result"]["facts"][0]["text"], found["result"]["facts"][0]["text"])
+        self.assertEqual(self.request("POST", "/api/preview", ref, sessions[1])[2], {"error": "unknown reference"})
 
     def test_alerted_fact_cannot_be_approved_until_edited(self) -> None:
         cookie, csrf, _ = self.pair()

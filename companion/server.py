@@ -75,7 +75,7 @@ class Companion:
             self.pairing_secret = None
             session_id, csrf = secrets.token_urlsafe(32), secrets.token_urlsafe(32)
             now = time.monotonic()
-            self.sessions[session_id] = {"csrf": csrf, "created": now, "seen": now}
+            self.sessions[session_id] = {"csrf": csrf, "created": now, "seen": now, "release": ReleaseSession()}
             return session_id, csrf
 
     def session(self, session_id: str | None) -> dict | None:
@@ -216,7 +216,7 @@ def make_handler(app: Companion):
                 return self._deny(401)
             if not hmac.compare_digest(self.headers.get("X-CSRF-Token", "").encode(), record["csrf"].encode()):
                 return self._deny()
-            self._post_api(path, body)
+            self._post_api(path, body, record)
 
         def do_OPTIONS(self) -> None:  # noqa: N802
             self._deny()
@@ -270,7 +270,7 @@ def make_handler(app: Companion):
             finally:
                 db.close()
 
-        def _post_api(self, path: str, body: dict) -> None:
+        def _post_api(self, path: str, body: dict, record: dict) -> None:
             db = store.connect()
             try:
                 if path == "/api/logout":
@@ -305,7 +305,7 @@ def make_handler(app: Companion):
                         return self._deny(400)
                     service = ReleaseService(db, channel="preview")
                     try:
-                        return self._json(200, {"result": call_tool(service, ReleaseSession(), tool, arguments)})
+                        return self._json(200, {"result": call_tool(service, record["release"], tool, arguments)})
                     except ReleaseError as error:
                         return self._json(400, {"error": str(error)})
                 self._deny(404)
