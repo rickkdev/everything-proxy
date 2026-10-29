@@ -89,6 +89,6 @@ rm -rf ~/Library/Application\ Support/everything-proxy   # deletes all local mai
 ## Verify
 
 ```sh
-.venv-eval/bin/python -W ignore -m unittest companion.tests.test_companion   # 17 synthetic tests, no network
+.venv-eval/bin/python -W ignore -m unittest companion.tests.test_companion   # 24 synthetic tests, no network
 .venv-eval/bin/python -W ignore -m companion.tests.smoke_real_model         # real Bonsai 2 + GLiNER + MCP stdio, fake Gmail
 ```

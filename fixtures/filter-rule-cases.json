@@ -108,6 +108,18 @@
       "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": "sensitive_topic"}
     },
     {
+      "id": "account-number-in-body-stays-local",
+      "metadata": {"sender": "person@example.test", "subject": "Quick favor", "language": "en"},
+      "body": "Send USD 3,450 to account 0091847721 by Friday. Keep the account details private.",
+      "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": "sensitive_topic"}
+    },
+    {
+      "id": "newsletter-account-footer-is-not-sensitive",
+      "metadata": {"sender": "digest@news.example.test", "subject": "Your weekly digest", "language": "en"},
+      "body": "Top posts this week.\n\nSettings ( [link removed] ),\nAccount details ( [link removed] ),\nUnsubscribe ( [link removed] )",
+      "expected": {"relevance": "inspect", "reason": "uncertain", "fetch_body": true, "privacy_hold": null}
+    },
+    {
       "id": "unsupported-language-stays-local",
       "metadata": {"sender": "person@example.test", "subject": "Échéance modifiée", "language": "fr"},
       "body": "La date limite est déplacée au 22 juin.",

@@ -5,7 +5,7 @@ from enum import StrEnum
 import re
 
 
-RULE_VERSION = "2026-10-27.1"
+RULE_VERSION = "2026-10-29.1"
 
 
 class Relevance(StrEnum):
@@ -99,7 +99,7 @@ _CHANGED_DATE = re.compile(
 _DECISION = re.compile(r"\bdecision\s*:", re.IGNORECASE)
 _SENSITIVE = re.compile(
     r"\b(?:medical leave|multiple sclerosis|diagnosis|account number|"
-    r"account details|bank account|private transfer|health update)\b",
+    r"account \d{6,}|bank account|private transfer|health update)\b",
     re.IGNORECASE,
 )
 
