@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 from email.utils import getaddresses, parseaddr
+from html import unescape
 from html.parser import HTMLParser
 import re
 
@@ -11,7 +12,7 @@ MAX_BODY_CHARS = 6000
 
 _QUOTE_HEADERS = re.compile(
     r"^(?:On .{0,200}wrote:|Am .{0,200}schrieb .{0,200}:|-{2,}\s*Original Message\s*-{2,}|"
-    r"-{2,}\s*Ursprüngliche Nachricht\s*-{2,}|From: .+\nSent: .+)",
+    r"-{2,}\s*Ursprüngliche Nachricht\s*-{2,}|From: [^\n]*?\sSent: )",
     re.MULTILINE | re.IGNORECASE,
 )
 _SIGNATURE = re.compile(r"^-- ?$", re.MULTILINE)
@@ -105,7 +106,7 @@ def body_text(payload: dict) -> tuple[str, dict[str, bool]]:
     markup = [part for part in plain if _MARKUP.search(part)]
     plain = [part for part in plain if not _MARKUP.search(part)]
     html = html or markup
-    source = "\n".join(plain) if plain else html_to_text("\n".join(html))
+    source = unescape("\n".join(plain)) if plain else html_to_text("\n".join(html))
     text = strip_quoted(source)
     truncated = len(text) > MAX_BODY_CHARS
     return text[:MAX_BODY_CHARS], {

@@ -381,6 +381,15 @@ class BodyTextTest(unittest.TestCase):
         body, _ = text.body_text(self.payload(("text/plain", plain), ("text/html", "<p>other</p>")))
         self.assertEqual(body, "Reply to <ops@example.test> or see <[link removed] 3 < 5 & 5 > 3.")
 
+    def test_one_line_outlook_quote_header_is_cut(self) -> None:
+        plain = ("We hold no data about you.\n\nFrom: privacy@corp.test &lt;privacy@corp.test&gt; Sent: Monday, "
+                 "26 October 2026 10:00 To: me@example.test Subject: Request\nYour original request.")
+        self.assertEqual(text.body_text(self.payload(("text/plain", plain)))[0], "We hold no data about you.")
+
+    def test_escaped_plain_part_is_decoded(self) -> None:
+        body, _ = text.body_text(self.payload(("text/plain", "Write to &lt;privacy@corp.test&gt; &amp; wait.")))
+        self.assertEqual(body, "Write to <privacy@corp.test> & wait.")
+
 
 if __name__ == "__main__":
     unittest.main()
