@@ -205,3 +205,11 @@ Evidence:
 Not yet applied to Rick's running instance: it still runs the old code. After a restart, the stored newsletter and Company A rows keep their old state until they are reprocessed. Resetting those two to `pending_body` makes `serve` re-fetch them read-only.
 
 Next: unchanged from the previous entry. Rick decides on the remote path and on business sender names. Independent work: plan C recall fixtures.
+
+## 2026-10-29 public repository
+
+At Rick's request the repository is public at https://github.com/rickkdev/everything-proxy. Before publishing, every commit was rewritten to author `rickkdev <mail@riccardolamanna.de>`, and the history was redacted: the Gmail address, Rick's full name, and the companies from the live mailbox now read as "Rick's Gmail address" and "Company A/B". A scan of every commit found no OAuth secrets, tokens, or keys. The repo was recreated rather than force-pushed so no pre-redaction commit stays reachable on GitHub. The top-level `README.md` now explains the product, setup, privacy model, and limits.
+
+Rule for future entries: describe live-mailbox findings by role ("a background-check company"), never by sender name or address, because this log is public.
+
+Next: unchanged. Rick decides on the remote path and on business sender names. Independent work: plan C recall fixtures.
