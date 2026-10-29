@@ -21,7 +21,7 @@ Google requires your own OAuth client for a personal read-only app.
 ## 2. Connect Gmail
 
 ```sh
-cd ~/.t3/projects/everything-proxy
+cd /path/to/everything-proxy
 .venv-eval/bin/python -m companion connect --client-secrets ~/Downloads/client_secret_XXXX.json
 ```
 
@@ -54,9 +54,9 @@ Claude Desktop, in `~/Library/Application Support/Claude/claude_desktop_config.j
 {
   "mcpServers": {
     "everything-proxy": {
-      "command": "/Users/rickkdev/.t3/projects/everything-proxy/.venv-eval/bin/python",
+      "command": "/path/to/everything-proxy/.venv-eval/bin/python",
       "args": ["-m", "companion", "mcp"],
-      "env": { "PYTHONPATH": "/Users/rickkdev/.t3/projects/everything-proxy" }
+      "env": { "PYTHONPATH": "/path/to/everything-proxy" }
     }
   }
 }
