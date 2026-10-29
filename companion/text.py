@@ -16,6 +16,7 @@ _QUOTE_HEADERS = re.compile(
 )
 _SIGNATURE = re.compile(r"^-- ?$", re.MULTILINE)
 _TRACKING_URL = re.compile(r"https?://\S+", re.IGNORECASE)
+_MARKUP = re.compile(r"<(?:!--|!\[|/?[a-z][a-z0-9]*(?::[a-z0-9]+)?(?:\s[^<>]*)?/?>)", re.IGNORECASE)
 
 _ENGLISH = frozenset(
     "the and to of a in is you that for it on with as this be are your have will please "
@@ -100,6 +101,10 @@ def body_text(payload: dict) -> tuple[str, dict[str, bool]]:
     plain: list[str] = []
     html: list[str] = []
     attachments = _walk(payload, plain, html)
+    # Template mailers often put their HTML into the text/plain part too.
+    markup = [part for part in plain if _MARKUP.search(part)]
+    plain = [part for part in plain if not _MARKUP.search(part)]
+    html = html or markup
     source = "\n".join(plain) if plain else html_to_text("\n".join(html))
     text = strip_quoted(source)
     truncated = len(text) > MAX_BODY_CHARS

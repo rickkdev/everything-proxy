@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import http.client
 import json
 import os
@@ -14,6 +15,7 @@ os.environ["EVERYTHING_PROXY_HOME"] = tempfile.mkdtemp(prefix="ep-test-")
 
 from companion import db as store  # noqa: E402
 from companion import privacy  # noqa: E402
+from companion import text  # noqa: E402
 from companion.gmail import AuthExpired, GmailClient, Grant  # noqa: E402
 from companion.mcp_server import TOOLS, handle  # noqa: E402
 from companion.release import ReleaseService, ReleaseSession  # noqa: E402
@@ -351,6 +353,33 @@ class HttpBoundary(unittest.TestCase):
         edited = self.request("POST", path, {"action": "edit", "text": "A sign-in attempt was blocked."}, headers)
         self.assertEqual(edited[2]["privacy_flags"], [])
         self.assertEqual(self.request("POST", path, {"action": "approve"}, headers)[0], 200)
+
+
+class BodyTextTest(unittest.TestCase):
+    @staticmethod
+    def payload(*parts: tuple[str, str]) -> dict:
+        encode = lambda text: base64.urlsafe_b64encode(text.encode()).decode().rstrip("=")
+        return {"mimeType": "multipart/alternative",
+                "parts": [{"mimeType": mime, "body": {"data": encode(text)}} for mime, text in parts]}
+
+    def test_markup_in_plain_part_is_converted(self) -> None:
+        template = ('<!--[if !mso]><!--><div>Your order shipped.</div><!--<![endif]-->\n'
+                    '<!--[if false]><!--><v:textbox inset="0"><w:anchorlock/>Track it</v:textbox><!--<![endif]-->'
+                    'Line one<br/>Line two')
+        body, _ = text.body_text(self.payload(("text/plain", template)))
+        self.assertNotIn("<", body)
+        for words in ("Your order shipped.", "Track it", "Line one", "Line two"):
+            self.assertIn(words, body)
+
+    def test_markup_plain_part_defers_to_html_part(self) -> None:
+        body, _ = text.body_text(self.payload(
+            ("text/plain", "<!--[if !mso]><!-->Sale<!--<![endif]-->"), ("text/html", "<p>Sale ends Friday.</p>")))
+        self.assertEqual(body, "Sale ends Friday.")
+
+    def test_angle_brackets_in_real_plain_text_survive(self) -> None:
+        plain = "Reply to <ops@example.test> or see <https://example.test/a>. 3 < 5 & 5 > 3."
+        body, _ = text.body_text(self.payload(("text/plain", plain), ("text/html", "<p>other</p>")))
+        self.assertEqual(body, "Reply to <ops@example.test> or see <[link removed] 3 < 5 & 5 > 3.")
 
 
 if __name__ == "__main__":
