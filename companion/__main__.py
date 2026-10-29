@@ -6,6 +6,7 @@ import argparse
 import json
 import math
 from pathlib import Path
+import signal
 import sys
 import threading
 import webbrowser
@@ -79,6 +80,9 @@ def _serve(args: argparse.Namespace) -> int:
 
     print("Loading the local privacy detector...", flush=True)
     privacy.detector()
+    # Unhandled, these skip the finally below and orphan the MLX server.
+    for number in (signal.SIGTERM, signal.SIGHUP):
+        signal.signal(number, lambda *_: sys.exit(0))
     stop = threading.Event()
     if gateway:
         threading.Thread(target=gateway.run_forever, args=(stop,), daemon=True).start()

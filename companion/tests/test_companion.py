@@ -6,6 +6,9 @@ import base64
 import http.client
 import json
 import os
+import signal
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import threading
@@ -353,6 +356,43 @@ class HttpBoundary(unittest.TestCase):
         edited = self.request("POST", path, {"action": "edit", "text": "A sign-in attempt was blocked."}, headers)
         self.assertEqual(edited[2]["privacy_flags"], [])
         self.assertEqual(self.request("POST", path, {"action": "approve"}, headers)[0], 200)
+
+
+SERVE_WITH_STUB_MODEL = """
+import sys
+from pathlib import Path
+from companion import __main__ as cli, gmail, model, privacy
+class Stub:
+    def stop(self):
+        Path(sys.argv[1]).write_text("stopped")
+gmail.Grant.load = staticmethod(lambda: None)
+model.runtime_available = lambda: None
+model.BonsaiExtractor = Stub
+privacy.detector = lambda: None
+raise SystemExit(cli.main(["serve", "--port", "0"]))
+"""
+
+
+class ServeShutdownTest(unittest.TestCase):
+    def test_sigterm_stops_the_local_model(self) -> None:
+        root = Path(__file__).resolve().parents[2]
+        (root / "browser" / "build").mkdir(parents=True, exist_ok=True)
+        if not (root / "browser" / "build" / "index.html").exists():
+            (root / "browser" / "build" / "index.html").write_text("<!doctype html><title>test</title>")
+        for stdin in (subprocess.PIPE, subprocess.DEVNULL):
+            with self.subTest(stdin="pipe" if stdin == subprocess.PIPE else "devnull"):
+                marker = Path(tempfile.mkdtemp()) / "stopped"
+                process = subprocess.Popen([sys.executable, "-c", SERVE_WITH_STUB_MODEL, str(marker)], cwd=root,
+                                           stdin=stdin, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                for line in process.stdout:
+                    if line.startswith("Press Enter"):
+                        break
+                process.send_signal(signal.SIGTERM)
+                self.assertEqual(process.wait(timeout=10), 0)
+                process.stdout.close()
+                if process.stdin:
+                    process.stdin.close()
+                self.assertTrue(marker.exists(), "serve stops the model server on SIGTERM")
 
 
 class BodyTextTest(unittest.TestCase):
